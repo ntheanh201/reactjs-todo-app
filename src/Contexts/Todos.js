@@ -56,7 +56,7 @@ export default class TodosContainer extends Component {
     const todos = [...this.state.todos, { id: uuid(), isDone: false, name }];
     this.setState(
       {
-        todos: todos
+        todos
       },
       this.filterTodos
     );
@@ -114,7 +114,7 @@ export default class TodosContainer extends Component {
     this.setState(
       {
         // you are not using isDone
-        todos: todos.map(({ id, isDone, name }) => ({
+        todos: todos.map(({ id, name }) => ({
           id,
           isDone: !toggleStatus,
           name
@@ -122,7 +122,7 @@ export default class TodosContainer extends Component {
         toggleStatus: !toggleStatus
       },
       this.filterTodos
-    );
+    )
   };
 
   getUndoneTodo = () => {
