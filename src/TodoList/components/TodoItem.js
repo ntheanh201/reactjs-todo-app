@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import styled from 'styled-components';
 import CheckBox from '../../Ui/components/CheckBox';
+import { TodosContext } from "../../Contexts/Todos";
 
 export default class TodoItem extends Component {
+    static contextType = TodosContext;
     constructor(props) {
         super(props)
         this.state = {
@@ -41,13 +43,14 @@ export default class TodoItem extends Component {
             this.handleEditMode(false)
             this.setState({
                 newLabel: event.target.value
-            },() => this.props.updateTodo({...this.props.todo, name: this.state.newLabel}))
+            },() => this.context.updateTodo({...this.props.todo, name: this.state.newLabel}))
            
         }
     }
 
     render() {
-        const { todo, updateTodo } = this.props
+        const { todo } = this.props
+        const {updateTodo} = this.context;
         return (
             <Li>
                 <Wrapper>
@@ -146,26 +149,3 @@ const EditInput = styled(Input)`
     padding: 12px 16px;
     margin: 0 0 0 43px;
 `;
-
-// const DestroyButton = styled.button`
-//     display: none;
-// 	position: absolute;
-// 	top: 0;
-// 	right: 10px;
-// 	bottom: 0;
-// 	width: 40px;
-// 	height: 40px;
-// 	margin: auto 0;
-// 	font-size: 30px;
-// 	color: #cc9a9a;
-// 	margin-bottom: 11px;
-//     transition: color 0.2s ease-out;
-
-//     :hover {
-//         color: #af5b5e;
-//     }
-
-//     ::after {
-//         content: '×';
-//     }
-// `;

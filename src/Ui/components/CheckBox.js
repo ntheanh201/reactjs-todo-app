@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
-import Icon from './Icon';
 import styled from 'styled-components';
+import Icon from './Icon';
+import { TodosContext } from "../../Contexts/Todos";
 
 import { ReactComponent as CheckIcon } from '../../Assets/icons/checked.svg';
 
 export default class CheckBox extends Component {
+    static contextType = TodosContext;
     render() {
-        const { checked, onClick } = this.props
+        const { checked, onClick } = this.props;
         const size = "28px"
         return (
             <Wrapper size={size} onClick={onClick}>

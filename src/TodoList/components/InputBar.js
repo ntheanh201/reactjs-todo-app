@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
+import { TodosContext } from "../../Contexts/Todos";
 
 export default class InputBar extends Component {
+    static contextType = TodosContext;
+
     constructor(props) {
         super(props)
         this.state = {
@@ -14,7 +17,7 @@ export default class InputBar extends Component {
     }
 
     handleSubmit = () => {
-        this.props.createTodo(this.state.value)
+        this.context.createTodo(this.state.value)
     }
 
     _handleKeyDown = (event) => {
@@ -26,8 +29,7 @@ export default class InputBar extends Component {
     render() {
         return (
             <Wrapper>
-                {/* <ToggleAllInput id="toggle-all" /> */}
-                <ToggleLabel onClick={this.props.toggleAllTodo} htmlFor="toggle-all">Mark all as complete</ToggleLabel>
+                <ToggleLabel onClick={this.context.toggleAllTodo} htmlFor="toggle-all">Mark all as complete</ToggleLabel>
                 <HeaderInput value={this.state.value} onChange={(value) => this.handleChange(value)} onKeyDown={this._handleKeyDown} placeholder="What needs to be done?"></HeaderInput>
             </Wrapper>
         )
