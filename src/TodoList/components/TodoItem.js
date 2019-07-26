@@ -1,15 +1,22 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import styled from 'styled-components';
 import CheckBox from '../../Ui/components/CheckBox';
-import { TodosContext } from "../../Contexts/Todos";
+import { updateTodo } from '../../actions/actionTypes'
 
-export default class TodoItem extends Component {
-    static contextType = TodosContext;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        updateTodo: (todo) => {
+            dispatch(updateTodo(todo))
+        }
+    }
+}
+
+class TodoItem extends Component {
     constructor(props) {
         super(props)
         this.state = {
             editMode: false,
-            newLabel: ''
         }
     }
 
@@ -22,7 +29,6 @@ export default class TodoItem extends Component {
     }
 
     handleClickOutside = (event) => {
-        // console.log(event.target, this.wrapperRef )
         if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
             this.handleEditMode(false)
         }
@@ -41,37 +47,36 @@ export default class TodoItem extends Component {
     _handleKeyDown = (event) => {
         if (event.key === 'Enter') {
             this.handleEditMode(false)
-            this.setState({
-                newLabel: event.target.value
-            },() => this.context.updateTodo({...this.props.todo, name: this.state.newLabel}))
-           
+            this.props.updateTodo({ ...this.props.todo, name: event.target.value })
+
         }
     }
 
     render() {
-        const { todo } = this.props
-        const {updateTodo} = this.context;
+        const { todo, updateTodo } = this.props
         return (
             <Li>
                 <Wrapper>
-                <CheckBox onClick={() => updateTodo({...todo, isDone: !todo.isDone})} checked={todo.isDone} />
+                    <CheckBox onClick={() => updateTodo({ ...todo, isDone: !todo.isDone })} checked={todo.isDone} />
                     {
-                        
-                        this.state.editMode?
-                        <EditInput
 
-                        onKeyDown={this._handleKeyDown} ref={this.setWrapperRef}
-                         
-                        defaultValue={todo.name} /> 
-                        : todo.isDone ? 
-                        <DoneLabel 
-                        onDoubleClick={() => this.handleEditMode(true)}>{todo.name}
+                        this.state.editMode ?
+                            <EditInput
+                                onKeyDown={this._handleKeyDown} ref={this.setWrapperRef}
+                                defaultValue={todo.name} />
+                            : todo.isDone ?
+                                <DoneLabel
+                                    // onDoubleClick={() => this.handleEditMode(true)}
+                                    onClick={() => this.handleEditMode(true)}
+                                >{todo.name}
 
-                        </DoneLabel> :
-                         <UndoneLabel 
-                         onDoubleClick={() => this.handleEditMode(true)}>{todo.name}
-                         </UndoneLabel>
-                
+                                </DoneLabel> :
+                                <UndoneLabel
+                                    // onDoubleClick={() => this.handleEditMode(true)}
+                                    onClick={() => this.handleEditMode(true)}
+                                >{todo.name}
+                                </UndoneLabel>
+
                     }
 
                 </Wrapper>
@@ -80,6 +85,8 @@ export default class TodoItem extends Component {
         )
     }
 }
+
+export default connect(null, mapDispatchToProps)(TodoItem)
 
 const Input = styled.input`
     ::-webkit-input-placeholder {

@@ -1,21 +1,19 @@
 import React, { Component } from 'react'
 import styled from 'styled-components';
 import TodoItem from './TodoItem';
-import { TodosContext } from "../../Contexts/Todos";
 
 export default class Todos extends Component {
-    static contextType = TodosContext;
 
     getData = (dataFromInput) => {
-        this.setState({content: dataFromInput})
+        this.setState({ content: dataFromInput })
     }
 
     showData = () => {
-        const {filteredTodos} = this.context;
-        return filteredTodos.map((todo, index) => 
+        const { todos } = this.props;
+        return todos.map((todo, index) =>
             <TodoItem
-            key={index}
-            todo={todo} />
+                key={index}
+                todo={todo} />
         )
     }
 
@@ -29,7 +27,6 @@ export default class Todos extends Component {
         )
     }
 }
-
 
 
 const Wrapper = styled.section`

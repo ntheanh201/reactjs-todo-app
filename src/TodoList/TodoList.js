@@ -1,20 +1,19 @@
 import React, { Component, Fragment } from "react";
 import styled from "styled-components";
 import Title from "../Ui/components/Title";
-import Todos from "./components/Todos";
-import ActionBar from "./components/ActionBar";
-import InputBar from "./components/InputBar";
+import TodosContainer from "./components/TodosContainer";
+import InputBarContainer from "./components/InputBarContainer";
+import ActionBarContainer from "./components/ActionBarContainer";
 
 export default class TodoList extends Component {
-
   render() {
     return (
       <Fragment>
         <Title>todos</Title>
         <Wrapper>
-          <InputBar />
-          <Todos />
-          <ActionBar />
+          <InputBarContainer />
+          <TodosContainer />
+          <ActionBarContainer />
         </Wrapper>
       </Fragment>
     );

@@ -1,31 +1,27 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Link as Links } from 'react-router-dom'
 import styled from 'styled-components';
-import { TodosContext } from "../../Contexts/Todos";
 
 export default class ActionBar extends Component {
-    static contextType = TodosContext;
-
     render() {
-        const { getUndoneTodo, filter, toggleFilter, clearCompletedTodo} = this.context
-        const count = getUndoneTodo()
+        const { clearCompletedTodo, filter, toggleFilter, count } = this.props
         return (
             <Footer>
                 <Span><Strong>{count}</Strong> {count > 1 ? "items" : "item"} left</Span>
                 <Router>
                     <FiltersUl>
                         <Li>
-                            <StyledLink highlighted={filter.name === 'showAll'? 1 : 0} onClick={() => toggleFilter(0)} to="#/">All</StyledLink>
+                            <StyledLink highlighted={filter === 'showAll' ? 1 : 0} onClick={() => toggleFilter('showAll')} to="#/">All</StyledLink>
                         </Li>
                         <Li>
-                            <StyledLink highlighted={filter.name === 'showActive' ? 1 : 0} onClick={() => toggleFilter(1)} to="#/active">Active</StyledLink>
+                            <StyledLink highlighted={filter === 'showActive' ? 1 : 0} onClick={() => toggleFilter('showActive')} to="#/active">Active</StyledLink>
                         </Li>
                         <Li>
-                            <StyledLink highlighted={filter.name === 'showCompleted' ? 1 : 0} onClick={() => toggleFilter(2)} to="#/completed">Completed</StyledLink>
+                            <StyledLink highlighted={filter === 'showCompleted' ? 1 : 0} onClick={() => toggleFilter('showCompleted')} to="#/completed">Completed</StyledLink>
                         </Li>
                     </FiltersUl>
                 </Router>
-                <ClearCompletedButton onClick={clearCompletedTodo}>Clear completed</ClearCompletedButton>
+                <ClearCompletedButton onClick={() => clearCompletedTodo()}>Clear completed</ClearCompletedButton>
             </Footer>
         )
     }
@@ -71,7 +67,7 @@ const StyledLink = styled(Link)`
     text-decoration: none;
     border: 1px solid transparent;
     border-radius: 3px;
-    border-color : ${context => (context.highlighted ? 'rgba(175, 47, 47, 0.2)' : 'none')};
+    border-color : ${props => (props.highlighted ? 'rgba(175, 47, 47, 0.2)' : 'none')};
     :hover {
         border-color: rgba(175, 47, 47, 0.1);
     }

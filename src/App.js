@@ -1,17 +1,20 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import Footer from "./Layouts/Footer";
 import TodoList from "./TodoList/TodoList";
-import TodosContainer from "./Contexts/Todos";
+import { Provider, ReactReduxContext } from 'react-redux'
+import store from './store/index'
 
 class App extends Component {
   render() {
     return (
-      <Fragment>
-        <TodosContainer>
-          <TodoList />
-        </TodosContainer>
+      <Provider store={ store }>
+        <ReactReduxContext.Consumer>
+          {({ store }) =>
+            <TodoList />
+          }
+        </ReactReduxContext.Consumer>
         <Footer />
-      </Fragment>
+      </Provider>
     );
   }
 }
