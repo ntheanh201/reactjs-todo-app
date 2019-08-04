@@ -1,12 +1,18 @@
 import { connect } from 'react-redux'
-import { addTodo, toggleAllTodo } from '../../actions/actionTypes';
+import { addTodo, toggleAllTodos } from '../../actions/actionTypes';
 import InputBar from './InputBar';
+
+const mapStateToProps = (state, ownProps) => {
+    return {
+        toggleStatus: state.toggleStatus
+    }
+}
 
 const mapDispatchToProps = dispatch => {
     return {
         handleSubmit: (text) => dispatch(addTodo(text)),
-        toggleAllTodo: () => dispatch(toggleAllTodo())
+        toggleAllTodos: (toggleStatus) => dispatch(toggleAllTodos(toggleStatus))
     }
 }
 
-export default connect(null, mapDispatchToProps)(InputBar)
+export default connect(mapStateToProps, mapDispatchToProps)(InputBar)

@@ -1,11 +1,11 @@
 import { connect } from 'react-redux'
-import {getVisibleTodos} from '../../selectors/selectors'
+import { getVisibleTodos } from '../../selectors/selectors'
 import Todos from './Todos'
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
     return {
-        todos: getVisibleTodos(state)
+        todos: getVisibleTodos(state),
     }
 }
 
-export default connect(mapStateToProps) (Todos)
+export default connect(mapStateToProps)(Todos)

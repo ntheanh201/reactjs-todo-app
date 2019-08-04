@@ -1,21 +1,12 @@
-import { createStore } from 'redux';
-import uuid from "uuid";
-import reducer from '../reducers/reducers';
 
-const todos = [{
-    id: uuid(),
-    isDone: false,
-    name: "Todo Item 1"
-}, {
-    id: uuid(),
-    isDone: false,
-    name: "Todo Item 2"
-}]
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import TodosReducer from '../reducers/reducers';
 
 const initialState = {
-    todos,
+    todos: [],
     toggleStatus: false,
     filter: "showAll",
 }
 
-export default createStore(reducer, initialState)
+export const store = createStore(TodosReducer, initialState, applyMiddleware(thunk))

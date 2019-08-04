@@ -25,7 +25,7 @@ export default class InputBar extends Component {
     render() {
         return (
             <Wrapper>
-                <ToggleLabel onClick={this.props.toggleAllTodo} htmlFor="toggle-all">Mark all as complete</ToggleLabel>
+                <ToggleLabel onClick={() => this.props.toggleAllTodos(this.props.toggleStatus)} htmlFor="toggle-all">Mark all as complete</ToggleLabel>
                 <HeaderInput onChange={(value) => this.handleChange(value)} onKeyDown={this._handleKeyDown} placeholder="What needs to be done?"></HeaderInput>
             </Wrapper>
         )

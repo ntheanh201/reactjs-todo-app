@@ -1,18 +1,8 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 import styled from 'styled-components';
 import CheckBox from '../../Ui/components/CheckBox';
-import { updateTodo } from '../../actions/actionTypes'
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        updateTodo: (todo) => {
-            dispatch(updateTodo(todo))
-        }
-    }
-}
-
-class TodoItem extends Component {
+export default class TodoItem extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -85,8 +75,6 @@ class TodoItem extends Component {
         )
     }
 }
-
-export default connect(null, mapDispatchToProps)(TodoItem)
 
 const Input = styled.input`
     ::-webkit-input-placeholder {

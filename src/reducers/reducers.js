@@ -1,21 +1,25 @@
 import {
     ADD_TODO,
-    CLEAR_COMPLETED_TODO,
+    GET_ALL_TODOS,
+    TOGGLE_ALL_TODOS,
+    UPDATE_TODO,
     SET_FILTER,
-    TOGGLE_ALL_TODO,
-    UPDATE_TODO
+    CLEAR_COMPLETED_TODO
 } from '../actions/actionTypes'
 
-//state la state hien tai, action co the coi la state moi
-//const theme = {
-// primaryColor: "#ffffff"
-// }
-/* <Theme theme={theme}></Theme> */
-
 export default function (state = [], action) {
-
     const { todos, toggleStatus, filter } = state
     switch (action.type) {
+        case GET_ALL_TODOS: {
+            console.log(action.payload)
+            // const allTodos = action.then(isAuthenticated => console.log(isAuthenticated));
+            // console.log(Promise.resolve(action.payload).then((data) => data))
+            return {
+                todos: action.payload,
+                toggleStatus,
+                filter
+            }
+        }
         case ADD_TODO: {
             const { id, isDone, name } = action.payload
             return {
@@ -23,35 +27,35 @@ export default function (state = [], action) {
                 toggleStatus,
                 filter,
             }
-            
         }
-        case TOGGLE_ALL_TODO: {
+        case TOGGLE_ALL_TODOS: {
+            const {toggleStatus} = action.payload
             return {
                 todos: todos.map(({ id, name }) => ({
                     id,
-                    isDone: !state.toggleStatus,
+                    isDone: toggleStatus,
                     name
                 })),
-                toggleStatus: !toggleStatus,
+                toggleStatus,
                 filter: state.filter,
+            }
+        }
+        case UPDATE_TODO: {
+            let todo = action.payload.todo
+            let updateTodos = [...todos]
+            const index = updateTodos.map(todo => todo.id).indexOf(todo.id);
+            updateTodos[index] = action.payload.todo;
+            return {
+                todos: updateTodos,
+                toggleStatus,
+                filter,
             }
         }
         case SET_FILTER: {
             return {
                 todos,
                 toggleStatus,
-                filter: action.filter,
-            }
-        }
-        case UPDATE_TODO: {
-            let todo = action.todo
-            let updateTodos = [...todos]
-            const index = updateTodos.map(todo => todo.id).indexOf(todo.id);
-            updateTodos[index] = action.todo;
-            return {
-                todos: updateTodos,
-                toggleStatus,
-                filter,
+                filter: action.payload.filter,
             }
         }
         case CLEAR_COMPLETED_TODO: {
