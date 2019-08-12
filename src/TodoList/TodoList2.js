@@ -10,11 +10,19 @@ export default class TodoList extends Component {
   state = {
     filter: 'showAll'
   }
-
   toggleFilter = (filter) => {
     this.setState({
       filter
     })
+  }
+
+  filterTodos = (todos = []) => {
+    switch (this.state.filter) {
+      case 'showAll': return todos
+      case 'showActive': return todos.filter(({ isDone }) => !isDone)
+      case 'showCompleted': return todos.filter(({ isDone }) => isDone)
+      default: return []
+    }
   }
 
   render() {
@@ -22,10 +30,9 @@ export default class TodoList extends Component {
       <Fragment>
         <Title>todos</Title>
         <Wrapper>
-          <GetAllTodos filter={this.state.filter} >
+          <GetAllTodos >
             {(data, refetch) => {
-              {/* const todos = this.filterTodos(data.todos) */}
-              const {todos} = data
+              const todos = this.filterTodos(data.todos)
               return <Fragment >
                 <ToggleAllTodos >
                   {
@@ -50,10 +57,10 @@ export default class TodoList extends Component {
                     (clearCompletedTodos) => (
                       <ActionBar
                         clearCompletedTodos = {clearCompletedTodos}
+                        toggleFilter={this.toggleFilter}
+                        filter={this.state.filter}
                         refetch = {refetch}
                         count = {todos.length}
-                        filter= {this.state.filter}
-                        toggleFilter = {this.toggleFilter}
                       />
                     )
                   }

@@ -3,8 +3,8 @@ import { gql } from 'apollo-boost';
 import { Query } from 'react-apollo';
 
 const GET_ALL_TODOS = gql`
-    query {
-        todos {
+    query ($filter: String!){
+        todos(filter: $filter) {
             id
             isDone
             name
@@ -18,8 +18,8 @@ const GET_TOGGLE_STATUS = gql`
     }
 `;
 
-export const GetAllTodos = ({children}) => (
-    <Query query={GET_ALL_TODOS} fetchPolicy='network-only'>
+export const GetAllTodos = ({filter, children}) => (
+    <Query query={GET_ALL_TODOS} variables={{filter}} fetchPolicy='network-only'>
         {({ loading, error, data={}, refetch }) => {
             if (loading) return <div>Loading...</div>;
             if (error) return <div>Error :(</div>;
