@@ -34,25 +34,42 @@ export default class TodoItem extends Component {
         })
     }
 
+    handleUpdateTodo = (todo, isDoneValue, nameValue) => {
+        Promise
+            .resolve(this.props.updateTodo({
+                variables: {
+                    input: {
+                        id: todo.id,
+                        isDone: isDoneValue,
+                        name: nameValue
+                    }
+                }
+            }))
+
+            .then(() => this.props.refetch)
+
+    }
+
     _handleKeyDown = (event) => {
         if (event.key === 'Enter') {
+            const {isDone} = this.props.todo
             this.handleEditMode(false)
-            this.props.updateTodo({ ...this.props.todo, name: event.target.value })
-
+            this.handleUpdateTodo(this.props.todo, isDone, event.target.value)
         }
     }
 
     render() {
-        const { todo, updateTodo } = this.props
+        const { todo } = this.props
+        const {isDone, name} = todo
         return (
             <Li>
                 <Wrapper>
-                    <CheckBox onClick={() => updateTodo({ ...todo, isDone: !todo.isDone })} checked={todo.isDone} />
+                    <CheckBox onClick={() => this.handleUpdateTodo(todo, !isDone, name)} checked={todo.isDone} />
                     {
 
                         this.state.editMode ?
                             <EditInput
-                                onKeyDown={this._handleKeyDown} ref={this.setWrapperRef}
+                                onKeyDown={(event) => this._handleKeyDown(event)} ref={this.setWrapperRef}
                                 defaultValue={todo.name} />
                             : todo.isDone ?
                                 <DoneLabel

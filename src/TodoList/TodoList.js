@@ -3,23 +3,70 @@ import styled from "styled-components";
 import Title from "../Ui/components/Title";
 import ActionBar from "./components/ActionBar";
 import { GetAllTodos } from '../queries/TodosQuery'
-import { AddTodo } from '../mutations/TodosMutations'
+import { AddTodo, UpdateTodo, ToggleAllTodos, ClearCompletedTodos } from '../mutations/TodosMutations'
 import Todos from "./components/Todos";
 
 export default class TodoList extends Component {
+  state = {
+    filter: 'showAll'
+  }
+  toggleFilter = (filter) => {
+    this.setState({
+      filter
+    })
+  }
+
+  filterTodos = (todos = []) => {
+    switch (this.state.filter) {
+      case 'showAll': return todos
+      case 'showActive': return todos.filter(({ isDone }) => !isDone)
+      case 'showCompleted': return todos.filter(({ isDone }) => isDone)
+      default: return []
+    }
+  }
+
   render() {
     return (
       <Fragment>
         <Title>todos</Title>
         <Wrapper>
           <GetAllTodos >
-            {(data, refetch) => (
-              <Fragment >
-                <AddTodo refetch={refetch} />
-                <Todos todos={data.todos} />
-                <ActionBar />
+            {(data, refetch) => {
+              const todos = this.filterTodos(data.todos)
+              return <Fragment >
+                <ToggleAllTodos >
+                  {
+                    (toggleAllTodos) => (
+                      <AddTodo refetch={refetch} toggleAllTodos={toggleAllTodos} />
+                    )
+                  }
+                </ToggleAllTodos>
+                <UpdateTodo>
+                  {
+                    (updateTodo) => (
+                      <Todos
+                        todos={todos}
+                        refetch={refetch}
+                        updateTodo={updateTodo}
+                      />
+                    )
+                  }
+                </UpdateTodo>
+                <ClearCompletedTodos>
+                  {
+                    (clearCompletedTodos) => (
+                      <ActionBar
+                        clearCompletedTodos = {clearCompletedTodos}
+                        toggleFilter={this.toggleFilter}
+                        filter={this.state.filter}
+                        refetch = {refetch}
+                        count = {todos.length}
+                      />
+                    )
+                  }
+                </ClearCompletedTodos>
               </Fragment>
-            )}
+            }}
           </GetAllTodos>
         </Wrapper>
       </Fragment>

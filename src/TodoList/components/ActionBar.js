@@ -3,8 +3,17 @@ import { BrowserRouter as Router, Link as Links } from 'react-router-dom'
 import styled from 'styled-components';
 
 export default class ActionBar extends Component {
+
+    handleClearCompletedTodos = () => {
+        Promise.resolve(this.props.clearCompletedTodos({
+            variables: {
+                completed: ''
+            }
+        })).then(() => this.props.refetch())
+    }
+
     render() {
-        const { clearCompletedTodo, filter, toggleFilter, count } = this.props
+        const { filter, toggleFilter, count } = this.props
         return (
             <Footer>
                 <Span><Strong>{count}</Strong> {count > 1 ? "items" : "item"} left</Span>
@@ -21,7 +30,7 @@ export default class ActionBar extends Component {
                         </Li>
                     </FiltersUl>
                 </Router>
-                <ClearCompletedButton onClick={() => clearCompletedTodo()}>Clear completed</ClearCompletedButton>
+                <ClearCompletedButton onClick={() => this.handleClearCompletedTodos()}>Clear completed</ClearCompletedButton>
             </Footer>
         )
     }
@@ -56,8 +65,8 @@ const Li = styled.li`
     display: inline;
 `;
 
-const Link = (context) => {
-    return <Links {...context}></Links>
+const Link = (props) => {
+    return <Links {...props}></Links>
 }
 
 const StyledLink = styled(Link)`

@@ -2,20 +2,30 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 import uuid from 'uuid'
 
-import { AddTodo,  } from '../../mutations/TodosMutations'
-
 export default class InputBar extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            text: ''
+            text: '',
+            toggleStatus: false
         }
     }
 
     handleChange = (event) => {
         this.setState({
             text: event.target.value
+        })
+    }
+
+    handleToggleAllTodos = () => {
+        Promise.resolve(this.props.toggleAllTodos({
+            variables: {
+                toggleStatus: !this.state.toggleStatus
+            }
+        })).then(() => this.props.refetch())
+        this.setState({
+            toggleStatus: !this.state.toggleStatus
         })
     }
 
@@ -40,7 +50,7 @@ export default class InputBar extends Component {
         const { addTodo } = this.props
         return (
             <Wrapper>
-                <ToggleLabel onClick={() => this.props.toggleAllTodos(this.props.toggleStatus)} htmlFor="toggle-all">Mark all as complete</ToggleLabel>
+                <ToggleLabel onClick={() => this.handleToggleAllTodos()} htmlFor="toggle-all">Mark all as complete</ToggleLabel>
                 <HeaderInput onChange={(event) => this.handleChange(event)} onKeyDown={(event) => this._handleKeyDown(event, addTodo)} placeholder="What needs to be done?"></HeaderInput>
             </Wrapper>
         )

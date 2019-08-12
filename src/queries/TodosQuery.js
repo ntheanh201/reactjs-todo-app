@@ -20,7 +20,7 @@ const GET_TOGGLE_STATUS = gql`
 
 export const GetAllTodos = ({children}) => (
     <Query query={GET_ALL_TODOS} fetchPolicy='network-only'>
-        {({ loading, error, data, refetch }) => {
+        {({ loading, error, data={}, refetch }) => {
             if (loading) return <div>Loading...</div>;
             if (error) return <div>Error :(</div>;
             console.log(data)
@@ -35,7 +35,7 @@ export const getToggleStatus = () => (
             if (loading) return <div>Loading...</div>;
             if (error) return <div>Error :(</div>;
             console.log(data)
-            {/* return (<Todos todos={data.todos} />) */}
+            return 
         }}
     </Query>
 )

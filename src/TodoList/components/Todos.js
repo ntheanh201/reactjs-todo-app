@@ -1,15 +1,17 @@
 import React, { Component } from 'react'
 import styled from 'styled-components';
-import TodoItemContainer from './TodoItemContainer';
+import TodoItem from './TodoItem';
 
 export default class Todos extends Component {
 
     showData = () => {
-        const {todos} = this.props
+        const { todos, refetch, updateTodo } = this.props
         return todos.map((todo, index) =>
-            <TodoItemContainer
-                key={index}
-                todo={todo} />
+            <TodoItem
+                updateTodo = {updateTodo}
+                refetch = {refetch}
+                key = {index}
+                todo = {todo} />
         )
     }
 
