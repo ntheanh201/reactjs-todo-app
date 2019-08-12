@@ -3,8 +3,9 @@ import styled from 'styled-components';
 import TodoItemContainer from './TodoItemContainer';
 
 export default class Todos extends Component {
+
     showData = () => {
-        const { todos } = this.props;
+        const {todos} = this.props
         return todos.map((todo, index) =>
             <TodoItemContainer
                 key={index}
@@ -22,7 +23,6 @@ export default class Todos extends Component {
         )
     }
 }
-
 
 const Wrapper = styled.section`
     position: relative;

@@ -1,9 +1,12 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
+import uuid from 'uuid'
+
+import { AddTodo,  } from '../../mutations/TodosMutations'
 
 export default class InputBar extends Component {
-    
-    constructor(props){
+
+    constructor(props) {
         super(props);
         this.state = {
             text: ''
@@ -16,17 +19,29 @@ export default class InputBar extends Component {
         })
     }
 
-    _handleKeyDown = (event) => {
+    _handleKeyDown = (event, addTodo) => {
         if (event.key === 'Enter') {
-            this.props.handleSubmit(this.state.text)
+            // this.props.handleSubmit(this.state.text)
+
+            Promise.resolve(addTodo({
+                variables: {
+                    input: {
+                        id: uuid(),
+                        isDone: false,
+                        name: this.state.text
+                    }
+                }
+            })).then(() => this.props.refetch())
+
         }
     }
 
     render() {
+        const { addTodo } = this.props
         return (
             <Wrapper>
                 <ToggleLabel onClick={() => this.props.toggleAllTodos(this.props.toggleStatus)} htmlFor="toggle-all">Mark all as complete</ToggleLabel>
-                <HeaderInput onChange={(value) => this.handleChange(value)} onKeyDown={this._handleKeyDown} placeholder="What needs to be done?"></HeaderInput>
+                <HeaderInput onChange={(event) => this.handleChange(event)} onKeyDown={(event) => this._handleKeyDown(event, addTodo)} placeholder="What needs to be done?"></HeaderInput>
             </Wrapper>
         )
     }

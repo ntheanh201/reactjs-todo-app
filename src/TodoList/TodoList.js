@@ -1,9 +1,10 @@
 import React, { Component, Fragment } from "react";
 import styled from "styled-components";
 import Title from "../Ui/components/Title";
-import TodosContainer from "./components/TodosContainer";
-import InputBarContainer from "./components/InputBarContainer";
-import ActionBarContainer from "./components/ActionBarContainer";
+import ActionBar from "./components/ActionBar";
+import { GetAllTodos } from '../queries/TodosQuery'
+import { AddTodo } from '../mutations/TodosMutations'
+import Todos from "./components/Todos";
 
 export default class TodoList extends Component {
   render() {
@@ -11,9 +12,15 @@ export default class TodoList extends Component {
       <Fragment>
         <Title>todos</Title>
         <Wrapper>
-          <InputBarContainer />
-          <TodosContainer />
-          <ActionBarContainer />
+          <GetAllTodos >
+            {(data, refetch) => (
+              <Fragment >
+                <AddTodo refetch={refetch} />
+                <Todos todos={data.todos} />
+                <ActionBar />
+              </Fragment>
+            )}
+          </GetAllTodos>
         </Wrapper>
       </Fragment>
     );
