@@ -4,14 +4,14 @@ import uuid from "uuid";
 export const TodosContext = React.createContext({
   todos: [],
   filteredTodos: [],
-  createTodo: () => {},
-  updateTodo: () => {},
+  createTodo: () => { },
+  updateTodo: () => { },
   filter: false,
-  toggleFilter: () => {},
-  filterTodos: () => {},
-  clearCompletedTodo: () => {},
-  toggleAllTodo: () => {},
-  getUndoneTodo: () => {}
+  toggleFilter: () => { },
+  filterTodos: () => { },
+  clearCompletedTodo: () => { },
+  toggleAllTodo: () => { },
+  getUndoneTodo: () => { }
 });
 
 export const todoFilters = [
@@ -35,7 +35,7 @@ export default class TodosContainer extends Component {
       {
         id: 0,
         isDone: false,
-        name: "TodoItem 1"
+        name: 'TodoItem 1'
       },
       {
         id: 1,
