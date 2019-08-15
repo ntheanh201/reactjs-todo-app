@@ -20,7 +20,6 @@ export default class TodoItem extends Component {
     }
 
     handleClickOutside = (event) => {
-        // console.log(event.target, this.wrapperRef )
         if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
             this.handleEditMode(false)
         }
@@ -41,8 +40,8 @@ export default class TodoItem extends Component {
             this.handleEditMode(false)
             this.setState({
                 newLabel: event.target.value
-            },() => this.props.updateTodo({...this.props.todo, name: this.state.newLabel}))
-           
+            }, () => this.props.updateTodo({ ...this.props.todo, name: this.state.newLabel }))
+
         }
     }
 
@@ -51,24 +50,19 @@ export default class TodoItem extends Component {
         return (
             <Li>
                 <Wrapper>
-                <CheckBox onClick={() => updateTodo({...todo, isDone: !todo.isDone})} checked={todo.isDone} />
+                    <CheckBox onClick={() => updateTodo({ ...todo, isDone: !todo.isDone })} checked={todo.isDone} />
                     {
-                        
-                        this.state.editMode?
-                        <EditInput
-
-                        onKeyDown={this._handleKeyDown} ref={this.setWrapperRef}
-                         
-                        defaultValue={todo.name} /> 
-                        : todo.isDone ? 
-                        <DoneLabel 
-                        onDoubleClick={() => this.handleEditMode(true)}>{todo.name}
-
-                        </DoneLabel> :
-                         <UndoneLabel 
-                         onDoubleClick={() => this.handleEditMode(true)}>{todo.name}
-                         </UndoneLabel>
-                
+                        this.state.editMode ?
+                            <EditInput
+                                onKeyDown={this._handleKeyDown} ref={this.setWrapperRef}
+                                defaultValue={todo.name} />
+                            : todo.isDone ?
+                                <DoneLabel
+                                    onDoubleClick={() => this.handleEditMode(true)}>{todo.name}
+                                </DoneLabel> :
+                                <UndoneLabel
+                                    onDoubleClick={() => this.handleEditMode(true)}>{todo.name}
+                                </UndoneLabel>
                     }
 
                 </Wrapper>

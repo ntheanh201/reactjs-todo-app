@@ -16,8 +16,6 @@ class App extends Component {
 }
 
 const Title = styled.h1`
-    // position: absolute;
-	// top: -155px;
 	width: 100%;
 	font-size: 100px;
 	font-weight: 100;

@@ -4,18 +4,22 @@ import Todos from './components/Todos';
 import styled from 'styled-components'
 import ActionBar from './components/ActionBar';
 import InputBar from './components/InputBar';
-const filters = [{
+
+const filters = [
+    {
         name: 'showAll',
         filterTodos: (todos) => todos
     }, {
         name: 'showActive',
-        filterTodos: (todos) =>  todos.filter(({isDone}) => !isDone)
+        filterTodos: (todos) => todos.filter(({ isDone }) => !isDone)
     }, {
         name: 'showCompleted',
-        filterTodos: (todos) =>  todos.filter(({isDone}) => isDone)
-    }]
+        filterTodos: (todos) => todos.filter(({ isDone }) => isDone)
+    }
+]
+
 export default class TodoList extends Component {
-  
+
     constructor(props) {
         super(props);
         const todos = [
@@ -40,11 +44,11 @@ export default class TodoList extends Component {
     }
 
     createTodo = (name) => {
-        const todos = [...this.state.todos, {id: uuid(), isDone: false, name}]
+        const todos = [...this.state.todos, { id: uuid(), isDone: false, name }]
         this.setState({
             todos: todos,
         }, this.filterTodos)
-        
+
     }
 
     updateTodo = (todo) => {
@@ -58,29 +62,8 @@ export default class TodoList extends Component {
 
     getUndoneTodo = () => {
         const { filteredTodos } = this.state
-        return filteredTodos.reduce((count, {isDone}) => !isDone ? count += 1: count, 0)
+        return filteredTodos.reduce((count, { isDone }) => !isDone ? count += 1 : count, 0)
     }
-
-    // showAll = () => {
-    //     const { todos } = this.state
-    //     this.setState({
-    //         filteredTodos: todos
-    //     })
-    // }
-
-    // showActive = () => {
-    //     let { todos } = this.state
-    //     this.setState({
-    //         filteredTodos: todos.filter(({isDone}) => !isDone)
-    //     })
-    // }
-
-    // showCompleted = () => {
-    //     const { todos } = this.state
-    //     this.setState({
-    //         filteredTodos: todos.filter(({isDone}) => isDone)
-    //     })
-    // }
 
     filterTodos = () => {
         const { filter } = this.state
@@ -100,14 +83,14 @@ export default class TodoList extends Component {
     clearCompletedTodo = () => {
         let { todos } = this.state
         this.setState({
-            todos: todos.filter(({isDone}) => !isDone) 
+            todos: todos.filter(({ isDone }) => !isDone)
         }, this.filterTodos)
     }
 
     toggleAllTodo = () => {
         let { todos, toggleStatus } = this.state
         this.setState({
-            todos: todos.map(({id, isDone, name}) => ({id, isDone: !toggleStatus, name})),
+            todos: todos.map(({ id, isDone, name }) => ({ id, isDone: !toggleStatus, name })),
             toggleStatus: !toggleStatus,
         }, this.filterTodos)
     }
@@ -115,18 +98,18 @@ export default class TodoList extends Component {
     render() {
         return (
             <Wrapper>
-                <InputBar 
-                createTodo={this.createTodo} 
-                toggleAllTodo={this.toggleAllTodo}
+                <InputBar
+                    createTodo={this.createTodo}
+                    toggleAllTodo={this.toggleAllTodo}
                 />
                 <Todos
-                updateTodo={this.updateTodo}
-                todos={this.state.filteredTodos} />
+                    updateTodo={this.updateTodo}
+                    todos={this.state.filteredTodos} />
                 <ActionBar
-                clearCompletedClick={this.clearCompletedTodo}
-                filter={this.state.filter}
-                toggleFilter={this.toggleFilter}
-                count={this.getUndoneTodo()} />
+                    clearCompletedClick={this.clearCompletedTodo}
+                    filter={this.state.filter}
+                    toggleFilter={this.toggleFilter}
+                    count={this.getUndoneTodo()} />
             </Wrapper>
         )
     }
