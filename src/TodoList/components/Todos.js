@@ -1,7 +1,18 @@
 import React, { useContext } from 'react'
 import styled from 'styled-components'
+// import PropTypes from 'prop-types'
 import TodoItem from './TodoItem'
 import { TodosContext } from '../../Contexts/TodosContext'
+
+// const propTypes = {
+//   filteredTodos: PropTypes.arrayOf(
+//     PropTypes.shape({
+//       id: PropTypes.string.isRequired,
+//       isDone: PropTypes.bool.isRequired,
+//       name: PropTypes.string.isRequired,
+//     })
+//   ).isRequired,
+// }
 
 const showData = props => {
   const { filteredTodos } = props
@@ -19,7 +30,7 @@ const Todos = () => {
     </Wrapper>
   )
 }
-
+// Todos.propTypes = propTypes
 export default Todos
 
 const Wrapper = styled.section`
