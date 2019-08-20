@@ -1,20 +1,25 @@
-import React, { Component } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import { BrowserRouter as Router, Link } from 'react-router-dom'
 
-export default class Footer extends Component {
-  render() {
-    return (
-      <Wrapper>
-        <Router>
-          <P>Double-click to edit a todo</P>
-          <P>Template by <StyledLink to="http://sindresorhus.com">Sindre Sorhus</StyledLink></P>
-          <P>Created by <StyledLink to="http://todomvc.com">ntheanh201</StyledLink></P>
-          <P>Part of <StyledLink to="http://todomvc.com">TodoMVC</StyledLink></P>
-        </Router>
-      </Wrapper>
-    )
-  }
+export const Footer = () => {
+  return (
+    <Wrapper>
+      <Router>
+        <P>Double-click to edit a todo</P>
+        <P>
+          Template by{' '}
+          <StyledLink to="http://sindresorhus.com">Sindre Sorhus</StyledLink>
+        </P>
+        <P>
+          Created by <StyledLink to="http://todomvc.com">ntheanh201</StyledLink>
+        </P>
+        <P>
+          Part of <StyledLink to="http://todomvc.com">TodoMVC</StyledLink>
+        </P>
+      </Router>
+    </Wrapper>
+  )
 }
 
 const Wrapper = styled.footer`
@@ -23,11 +28,11 @@ const Wrapper = styled.footer`
   font-size: 10px;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
   text-align: center;
-`;
+`
 
 const P = styled.p`
   line-height: 1;
-`;
+`
 
 const StyledLink = styled(Link)`
   color: inherit;
@@ -37,4 +42,4 @@ const StyledLink = styled(Link)`
   &:hover {
     text-decoration: underline;
   }
-`;
+`

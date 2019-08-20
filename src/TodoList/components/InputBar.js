@@ -1,47 +1,37 @@
-import React, { Component } from 'react'
+import React, { useContext, useState } from 'react'
 import styled from 'styled-components'
-import { TodosContext } from '../../Contexts/Todos'
+import { TodosContext } from '../../Contexts/TodosContext'
 
-export default class InputBar extends Component {
-  static contextType = TodosContext
+const InputBar = () => {
+  const context = useContext(TodosContext)
+  const [value, setValue] = useState('')
 
-  constructor(props) {
-    super(props)
-    this.state = {
-      value: '',
-    }
+  const handleChange = event => {
+    setValue(event.target.value)
   }
 
-  handleChange(event) {
-    this.setState({ value: event.target.value })
-  }
-
-  handleSubmit = () => {
-    this.context.createTodo(this.state.value)
-  }
-
-  _handleKeyDown = event => {
+  const handleKeyDown = event => {
     if (event.key === 'Enter') {
-      this.handleSubmit()
+      context.createTodo(value)
     }
   }
 
-  render() {
-    return (
-      <Wrapper>
-        <ToggleLabel onClick={this.context.toggleAllTodo} htmlFor="toggle-all">
-          Mark all as complete
-        </ToggleLabel>
-        <HeaderInput
-          value={this.state.value}
-          onChange={value => this.handleChange(value)}
-          onKeyDown={this._handleKeyDown}
-          placeholder="What needs to be done?"
-        />
-      </Wrapper>
-    )
-  }
+  return (
+    <Wrapper>
+      <ToggleLabel onClick={context.toggleAllTodo} htmlFor="toggle-all">
+        Mark all as complete
+      </ToggleLabel>
+      <HeaderInput
+        value={value}
+        onChange={value => handleChange(value)}
+        onKeyDown={handleKeyDown}
+        placeholder="What needs to be done?"
+      />
+    </Wrapper>
+  )
 }
+
+export default InputBar
 
 const ToggleLabel = styled.label`
   width: 60px;

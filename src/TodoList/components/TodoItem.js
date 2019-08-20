@@ -1,89 +1,70 @@
-import React, { Component } from 'react'
+/* eslint-disable indent */
+import React, { useState, useContext, useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import CheckBox from '../../Ui/components/CheckBox'
-import { TodosContext } from '../../Contexts/Todos'
+import { TodosContext } from '../../Contexts/TodosContext'
 
-export default class TodoItem extends Component {
-  static contextType = TodosContext
-  constructor(props) {
-    super(props)
-    this.state = {
-      editMode: false,
-      newLabel: '',
+const TodoItem = props => {
+  const context = useContext(TodosContext)
+  const [editMode, setEditMode] = useState(false)
+  const [newLabel, setNewLabel] = useState('')
+  const { todo } = props
+  const { updateTodo } = context
+  const ref = useRef()
+
+  const handleClickOutside = event => {
+    if (ref.current && !ref.current.contains(event.target)) {
+      setEditMode(false)
     }
   }
 
-  componentDidMount() {
-    document.addEventListener('mousedown', this.handleClickOutside)
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  })
+
+  const handleChange = event => {
+    setNewLabel(event.target.value)
   }
 
-  componentWillUnmount() {
-    document.removeEventListener('mousedown', this.handleClickOutside)
-  }
-
-  handleClickOutside = event => {
-    // console.log(event.target, this.wrapperRef )
-    if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
-      this.handleEditMode(false)
-    }
-  }
-
-  setWrapperRef = node => {
-    this.wrapperRef = node
-  }
-
-  handleEditMode = value => {
-    this.setState({
-      editMode: value,
-    })
-  }
-
-  _handleKeyDown = event => {
+  const _handleKeyDown = event => {
     if (event.key === 'Enter') {
-      this.handleEditMode(false)
-      this.setState(
-        {
-          newLabel: event.target.value,
-        },
-        () =>
-          this.context.updateTodo({
-            ...this.props.todo,
-            name: this.state.newLabel,
-          })
-      )
+      setEditMode(false)
+      setNewLabel(event.target.value)
+      context.updateTodo({
+        ...props.todo,
+        name: newLabel,
+      })
     }
   }
 
-  render() {
-    const { todo } = this.props
-    const { updateTodo } = this.context
-    return (
-      <Li>
-        <Wrapper>
-          <CheckBox
-            onClick={() => updateTodo({ ...todo, isDone: !todo.isDone })}
-            checked={todo.isDone}
+  return (
+    <Li>
+      <Wrapper>
+        <CheckBox
+          onClick={() => updateTodo({ ...todo, isDone: !todo.isDone })}
+          checked={todo.isDone}
+        />
+        {editMode ? (
+          <EditInput
+            onKeyDown={_handleKeyDown}
+            onChange={value => handleChange(value)}
+            ref={ref}
+            defaultValue={todo.name}
           />
-          {this.state.editMode ? (
-            <EditInput
-              onKeyDown={this._handleKeyDown}
-              ref={this.setWrapperRef}
-              defaultValue={todo.name}
-            />
-          ) : todo.isDone ? (
-            <DoneLabel onDoubleClick={() => this.handleEditMode(true)}>
-              {todo.name}
-            </DoneLabel>
-          ) : (
-            <UndoneLabel onDoubleClick={() => this.handleEditMode(true)}>
-              {todo.name}
-            </UndoneLabel>
-          )}
-        </Wrapper>
-      </Li>
-    )
-  }
+        ) : todo.isDone ? (
+          <DoneLabel onClick={() => setEditMode(true)}>{todo.name}</DoneLabel>
+        ) : (
+          <UndoneLabel onClick={() => setEditMode(true)}>
+            {todo.name}
+          </UndoneLabel>
+        )}
+      </Wrapper>
+    </Li>
+  )
 }
+
+export default TodoItem
 
 const Input = styled.input`
   ::-webkit-input-placeholder {

@@ -1,61 +1,56 @@
-import React, { Component } from 'react'
+import React, { useContext } from 'react'
 import { BrowserRouter as Router, Link as Links } from 'react-router-dom'
 import styled from 'styled-components'
-import { TodosContext } from '../../Contexts/Todos'
+import { TodosContext } from '../../Contexts/TodosContext'
 
-export default class ActionBar extends Component {
-  static contextType = TodosContext
-  render() {
-    const {
-      getUndoneTodo,
-      filter,
-      toggleFilter,
-      clearCompletedTodo,
-    } = this.context
-    const count = getUndoneTodo()
-    return (
-      <Footer>
-        <Span>
-          <Strong>{count}</Strong> {count > 1 ? 'items' : 'item'} left
-        </Span>
-        <Router>
-          <FiltersUl>
-            <Li>
-              <StyledLink
-                highlighted={filter.name === 'showAll' ? 1 : 0}
-                onClick={() => toggleFilter(0)}
-                to="#/"
-              >
-                All
-              </StyledLink>
-            </Li>
-            <Li>
-              <StyledLink
-                highlighted={filter.name === 'showActive' ? 1 : 0}
-                onClick={() => toggleFilter(1)}
-                to="#/active"
-              >
-                Active
-              </StyledLink>
-            </Li>
-            <Li>
-              <StyledLink
-                highlighted={filter.name === 'showCompleted' ? 1 : 0}
-                onClick={() => toggleFilter(2)}
-                to="#/completed"
-              >
-                Completed
-              </StyledLink>
-            </Li>
-          </FiltersUl>
-        </Router>
-        <ClearCompletedButton onClick={clearCompletedTodo}>
-          Clear completed
-        </ClearCompletedButton>
-      </Footer>
-    )
-  }
+const ActionBar = () => {
+  const context = useContext(TodosContext)
+  const { getUndoneTodo, filter, toggleFilter, clearCompletedTodo } = context
+  const count = getUndoneTodo()
+  return (
+    <Footer>
+      <Span>
+        <Strong>{count}</Strong> {count > 1 ? 'items' : 'item'} left
+      </Span>
+      <Router>
+        <FiltersUl>
+          <Li>
+            <StyledLink
+              highlighted={filter.name === 'showAll' ? 1 : 0}
+              onClick={() => toggleFilter(0)}
+              to="#/"
+            >
+              All
+            </StyledLink>
+          </Li>
+          <Li>
+            <StyledLink
+              highlighted={filter.name === 'showActive' ? 1 : 0}
+              onClick={() => toggleFilter(1)}
+              to="#/active"
+            >
+              Active
+            </StyledLink>
+          </Li>
+          <Li>
+            <StyledLink
+              highlighted={filter.name === 'showCompleted' ? 1 : 0}
+              onClick={() => toggleFilter(2)}
+              to="#/completed"
+            >
+              Completed
+            </StyledLink>
+          </Li>
+        </FiltersUl>
+      </Router>
+      <ClearCompletedButton onClick={clearCompletedTodo}>
+        Clear completed
+      </ClearCompletedButton>
+    </Footer>
+  )
 }
+
+export default ActionBar
 
 const Button = styled.button`
   margin: 0;

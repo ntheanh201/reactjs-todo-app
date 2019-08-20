@@ -1,30 +1,26 @@
-import React, { Component } from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components'
 import TodoItem from './TodoItem'
-import { TodosContext } from '../../Contexts/Todos'
+import { TodosContext } from '../../Contexts/TodosContext'
 
-export default class Todos extends Component {
-  static contextType = TodosContext
-
-  getData = dataFromInput => {
-    this.setState({ content: dataFromInput })
-  }
-
-  showData = () => {
-    const { filteredTodos } = this.context
-    return filteredTodos.map((todo, index) => (
-      <TodoItem key={index} todo={todo} />
-    ))
-  }
-
-  render() {
-    return (
-      <Wrapper>
-        <List>{this.showData()}</List>
-      </Wrapper>
-    )
-  }
+const showData = props => {
+  const { filteredTodos } = props
+  return filteredTodos.map((todo, index) => (
+    <TodoItem key={index} todo={todo} />
+  ))
 }
+
+const Todos = () => {
+  const context = useContext(TodosContext)
+
+  return (
+    <Wrapper>
+      <List>{showData(context)}</List>
+    </Wrapper>
+  )
+}
+
+export default Todos
 
 const Wrapper = styled.section`
   position: relative;

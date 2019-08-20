@@ -1,19 +1,17 @@
-import React, { Component, Fragment } from "react";
-import Footer from "./Layouts/Footer";
-import TodoList from "./TodoList/TodoList";
-import TodosContainer from "./Contexts/Todos";
+import React, { Fragment } from 'react'
+import { Footer } from './Layouts/Footer'
+import TodoList from './TodoList/TodoList'
+import TodosContainer from './Contexts/TodosContext'
 
-class App extends Component {
-  render() {
-    return (
-      <Fragment>
-        <TodosContainer>
-          <TodoList />
-        </TodosContainer>
-        <Footer />
-      </Fragment>
-    );
-  }
+const App = () => {
+  return (
+    <Fragment>
+      <TodosContainer>
+        <TodoList />
+      </TodosContainer>
+      <Footer />
+    </Fragment>
+  )
 }
 
-export default App;
+export default App
