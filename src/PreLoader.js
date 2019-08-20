@@ -1,24 +1,18 @@
-import { Component } from 'react'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
-import {getAllTodos} from './actions/actionTypes'
+import { connect } from 'react-redux';
+import { getAllTodos } from './actions/actionTypes';
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-    return {
-        getAllTodos: () => dispatch(getAllTodos())
-        // getAllTodos: bindActionCreators(getAllTodos, dispatch)
-    }
-}
+  return {
+    getAllTodos: () => dispatch(getAllTodos())
+  };
+};
 
-class PreLoader extends Component {
-    componentDidMount(){
-        this.props.getAllTodos()
-    }
+const PreLoader = props => {
+  props.getAllTodos();
+  return props.children;
+};
 
-    render() {
-        return this.props.children
-        
-    }
-}
-
-export default connect(null, mapDispatchToProps)(PreLoader)
+export default connect(
+  null,
+  mapDispatchToProps
+)(PreLoader);

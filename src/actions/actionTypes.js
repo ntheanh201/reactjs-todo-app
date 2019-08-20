@@ -1,33 +1,14 @@
 import axios from 'axios';
 import { createAction } from 'redux-actions';
-import uuid from "uuid";
-export const ADD_TODO = 'ADD_TODO'
-export const GET_ALL_TODOS = 'GET_ALL_TODOS'
-export const TOGGLE_ALL_TODOS = 'TOGGLE_ALL_TODOS'
-export const UPDATE_TODO = 'UPDATE_TODO'
-export const SET_FILTER = 'SET_FILTER'
-export const CLEAR_COMPLETED_TODO = 'CLEAR_COMPLETED_TODO'
+import uuid from 'uuid';
+export const ADD_TODO = 'ADD_TODO';
+export const GET_ALL_TODOS = 'GET_ALL_TODOS';
+export const TOGGLE_ALL_TODOS = 'TOGGLE_ALL_TODOS';
+export const UPDATE_TODO = 'UPDATE_TODO';
+export const SET_FILTER = 'SET_FILTER';
+export const CLEAR_COMPLETED_TODO = 'CLEAR_COMPLETED_TODO';
 
-const serverUrl = 'http://localhost:8123'
-
-// export const getAllTodos = () => {
-//     const data =  axios.get(`${serverUrl}/todos`)
-//     .then(res => res.data)
-//     .then(data => {
-//         console.log(data)
-//         return ({ type: GET_ALL_TODOS, payload: data })
-
-//     })
-//     .catch(console.log)
-//     console.log(Promise.resolve(data).then(values => values))
-//     return data
-// }
-
-// export const getAllTodos = () => {
-//     const todos = getAll()
-//     console.log(todos)
-//     return todos
-// }
+const serverUrl = 'http://localhost:8123';
 
 // export const getAll = createAction(GET_ALL_TODOS, () => {
 //     // return axios.get(`${serverUrl}/todos`).then(response => response.data)
@@ -38,66 +19,72 @@ const serverUrl = 'http://localhost:8123'
 //     })
 // })
 
-const fetchTodo = (res) => {
-    return {
-        type: GET_ALL_TODOS,
-        payload: res.data
-    }
-}
+const fetchTodo = res => {
+  return {
+    type: GET_ALL_TODOS,
+    payload: res.data
+  };
+};
 
 const fetchStart = () => {
-    return {
-        type: GET_ALL_TODOS,
-        payload: []
-    }
-}
+  return {
+    type: GET_ALL_TODOS,
+    payload: []
+  };
+};
 
 export const getAllTodos = () => {
-    return async (dispatch) =>{
-      try {
-        dispatch(fetchStart())
-        let res = await axios.get(`${serverUrl}/todos`)
-        dispatch(fetchTodo(res))
-      } catch (error) {
-        dispatch(fetchStart())
-      }
+  return async dispatch => {
+    try {
+      dispatch(fetchStart());
+      let res = await axios.get(`${serverUrl}/todos`);
+      dispatch(fetchTodo(res));
+    } catch (error) {
+      dispatch(fetchStart());
     }
-  }
+  };
+};
 
-export const addTodo = createAction(ADD_TODO, (text) => {
-    const id = uuid()
-    axios.post(`${serverUrl}/todos`, { name: text, id })
-        .then(res => res.data)
-        .catch(console.log)
-    return {
-        id, isDone: false, name: text
-    }
-})
+export const addTodo = createAction(ADD_TODO, text => {
+  const id = uuid();
+  axios
+    .post(`${serverUrl}/todos`, { name: text, id })
+    .then(res => res.data)
+    .catch(console.log);
+  return {
+    id,
+    isDone: false,
+    name: text
+  };
+});
 
-export const toggleAllTodos = createAction(TOGGLE_ALL_TODOS, (toggleStatus) => {
-    axios.put(`${serverUrl}/todos/toggleAll`, { toggleStatus })
-        .then(res => res.data)
-        .catch(console.log)
-    return { toggleStatus: !toggleStatus }
-})
+export const toggleAllTodos = createAction(TOGGLE_ALL_TODOS, toggleStatus => {
+  axios
+    .put(`${serverUrl}/todos/toggleAll`, { toggleStatus })
+    .then(res => res.data)
+    .catch(console.log);
+  return { toggleStatus: !toggleStatus };
+});
 
-export const updateTodo = createAction(UPDATE_TODO, (todo) => {
-    console.log(todo)
-    axios.put(`${serverUrl}/todos/update/${todo.id}`, { todo })
-        .then(res => res.data)
-        .catch(console.log)
-    return {
-        todo
-    }
-})
+export const updateTodo = createAction(UPDATE_TODO, todo => {
+  console.log(todo);
+  axios
+    .put(`${serverUrl}/todos/update/${todo.id}`, { todo })
+    .then(res => res.data)
+    .catch(console.log);
+  return {
+    todo
+  };
+});
 
-export const setFilter = createAction(SET_FILTER, (filter) => {
-    return { filter }
-})
+export const setFilter = createAction(SET_FILTER, filter => {
+  return { filter };
+});
 
 export const clearCompletedTodo = createAction(CLEAR_COMPLETED_TODO, () => {
-    axios.delete(`${serverUrl}/todos/completed`)
-        .then(res => res.data)
-        .catch(console.log)
-    return {}
-})
+  axios
+    .delete(`${serverUrl}/todos/completed`)
+    .then(res => res.data)
+    .catch(console.log);
+  return {};
+});

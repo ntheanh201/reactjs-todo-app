@@ -1,21 +1,17 @@
-import React, { Component } from 'react'
+import React from 'react';
 import styled from 'styled-components';
 
-export default class Icon extends Component {
-    render() {
-        const { children, ...restProps } = this.props
-        return (
-            <Wrapper {...restProps}>
-                {this.props.children}
-            </Wrapper>
-        )
-    }
-}
+const Icon = props => {
+  const { children, ...restProps } = props;
+  return <Wrapper {...restProps}>{props.children}</Wrapper>;
+};
+
+export default Icon;
 
 const Wrapper = styled.div`
- path {
+  path {
     filled: ${props => props.color};
- }
- height: ${props => props.size};
- width: ${props => props.size};
-`
+  }
+  height: ${props => props.size};
+  width: ${props => props.size};
+`;

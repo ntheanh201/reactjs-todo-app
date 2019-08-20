@@ -1,24 +1,24 @@
-import React, { Component, Fragment } from "react";
-import styled from "styled-components";
-import Title from "../Ui/components/Title";
-import TodosContainer from "./components/TodosContainer";
-import InputBarContainer from "./components/InputBarContainer";
-import ActionBarContainer from "./components/ActionBarContainer";
+import React, { Fragment } from 'react';
+import styled from 'styled-components';
+import Title from '../Ui/components/Title';
+import TodosContainer from './components/TodosContainer';
+import InputBarContainer from './components/InputBarContainer';
+import ActionBarContainer from './components/ActionBarContainer';
 
-export default class TodoList extends Component {
-  render() {
-    return (
-      <Fragment>
-        <Title>todos</Title>
-        <Wrapper>
-          <InputBarContainer />
-          <TodosContainer />
-          <ActionBarContainer />
-        </Wrapper>
-      </Fragment>
-    );
-  }
-}
+const TodoList = () => {
+  return (
+    <Fragment>
+      <Title>todos</Title>
+      <Wrapper>
+        <InputBarContainer />
+        <TodosContainer />
+        <ActionBarContainer />
+      </Wrapper>
+    </Fragment>
+  );
+};
+
+export default TodoList;
 
 const Wrapper = styled.section`
   background: #fff;

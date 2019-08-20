@@ -1,12 +1,12 @@
-import { handleActions } from 'redux-actions'
+import { handleActions } from 'redux-actions';
 import {
-    getAllTodos,
-    addTodo,
-    // toggleAllTodo,
-    // updateTodo,
-    // setFilter,
-    // clearCompletedTodo
-} from '../actions/actionTypes2'
+  getAllTodos,
+  addTodo
+  // toggleAllTodo,
+  // updateTodo,
+  // setFilter,
+  // clearCompletedTodo
+} from '../actions/actionTypes2';
 
 //state la state hien tai, action co the coi la state moi
 //const theme = {
@@ -15,10 +15,10 @@ import {
 /* <Theme theme={theme}></Theme> */
 
 const defaultState = {
-    todos: [{ id: 0, isDone: false, name: 'anh' }],
-    toggleStatus: false,
-    filter: 'showAll'
-}
+  todos: [{ id: 0, isDone: false, name: 'anh' }],
+  toggleStatus: false,
+  filter: 'showAll'
+};
 
 // const handleGetAllTodos = (state, action) => {
 //     const todos = action.payload.todos
@@ -32,11 +32,11 @@ const defaultState = {
 // }
 
 const handleAddTodo = (state, action) => {
-    console.log(action.payload.todos)
-    return {
-        // todos: [...state.todos, { id, isDone, name }]
-    }
-}
+  console.log(action.payload.todos);
+  return {
+    // todos: [...state.todos, { id, isDone, name }]
+  };
+};
 
 // const handleToggleAllTodo = (state, action) => {
 //     // const { todos, toggleStatus, filter } = state
@@ -82,20 +82,25 @@ const handleAddTodo = (state, action) => {
 //     // }
 // }
 
-export const TodosReducer = handleActions({
+export const TodosReducer = handleActions(
+  {
     // [getAllTodos]: handleGetAllTodos,
     [addTodo]: (state, action) => {
-        console.log("fjeffij")
-        return ({
+      console.log('fjeffij');
+      return {
         counter: state.counter + action.payload
-      })},
+      };
+    },
     // [toggleAllTodo]: handleToggleAllTodo,
     // [setFilter]: handleSetFilter,
     // [updateTodo]: handleUpdateTodo,
     // [clearCompletedTodo]: handleClearCompletedTodo
     [getAllTodos]: (state, action) => {
-        console.log("fjeffij")
-        return ({
+      console.log('fjeffij');
+      return {
         counter: state.counter + action.payload
-      })}
-}, defaultState)
+      };
+    }
+  },
+  defaultState
+);
