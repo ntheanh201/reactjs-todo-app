@@ -1,71 +1,69 @@
-import React, { Component, Fragment } from "react";
-import styled from "styled-components";
-import Title from "../Ui/components/Title";
-import ActionBar from "./components/ActionBar";
-import { GetAllTodos } from '../queries/TodosQuery'
-import { AddTodo, UpdateTodo, ToggleAllTodos, ClearCompletedTodos } from '../mutations/TodosMutations'
-import Todos from "./components/Todos";
+import React, { useState, Fragment } from 'react';
+import styled from 'styled-components';
+import Title from '../Ui/components/Title';
+import ActionBar from './components/ActionBar';
+import { GetAllTodos } from '../queries/TodosQuery';
+import {
+  AddTodo,
+  UpdateTodo,
+  ToggleAllTodos,
+  ClearCompletedTodos
+} from '../mutations/TodosMutations';
+import Todos from './components/Todos';
 
-export default class TodoList extends Component {
-  state = {
-    filter: 'showAll'
-  }
+const TodoList = () => {
+  const [filter, setFilter] = useState('showAll');
+  const toggleFilter = filter => {
+    setFilter(filter);
+  };
 
-  toggleFilter = (filter) => {
-    this.setState({
-      filter
-    })
-  }
-
-  render() {
-    return (
-      <Fragment>
-        <Title>todos</Title>
-        <Wrapper>
-          <GetAllTodos filter={this.state.filter} >
-            {(data, refetch) => {
-              {/* const todos = this.filterTodos(data.todos) */}
-              const {todos} = data
-              return <Fragment >
-                <ToggleAllTodos >
-                  {
-                    (toggleAllTodos) => (
-                      <AddTodo refetch={refetch} toggleAllTodos={toggleAllTodos} />
-                    )
-                  }
+  return (
+    <Fragment>
+      <Title>todos</Title>
+      <Wrapper>
+        <GetAllTodos filter={filter}>
+          {(data, refetch) => {
+            const { todos } = data;
+            return (
+              <Fragment>
+                <ToggleAllTodos>
+                  {toggleAllTodos => (
+                    <AddTodo
+                      refetch={refetch}
+                      toggleAllTodos={toggleAllTodos}
+                    />
+                  )}
                 </ToggleAllTodos>
                 <UpdateTodo>
-                  {
-                    (updateTodo) => (
-                      <Todos
-                        todos={todos}
-                        refetch={refetch}
-                        updateTodo={updateTodo}
-                      />
-                    )
-                  }
+                  {updateTodo => (
+                    <Todos
+                      todos={todos}
+                      refetch={refetch}
+                      updateTodo={updateTodo}
+                    />
+                  )}
                 </UpdateTodo>
                 <ClearCompletedTodos>
-                  {
-                    (clearCompletedTodos) => (
-                      <ActionBar
-                        clearCompletedTodos = {clearCompletedTodos}
-                        refetch = {refetch}
-                        count = {todos.length}
-                        filter= {this.state.filter}
-                        toggleFilter = {this.toggleFilter}
-                      />
-                    )
-                  }
+                  {clearCompletedTodos => (
+                    <ActionBar
+                      clearCompletedTodos={clearCompletedTodos}
+                      refetch={refetch}
+                      count={todos.length}
+                      filter={filter}
+                      toggleFilter={toggleFilter}
+                    />
+                  )}
                 </ClearCompletedTodos>
               </Fragment>
-            }}
-          </GetAllTodos>
-        </Wrapper>
-      </Fragment>
-    );
-  }
-}
+            );
+          }}
+        </GetAllTodos>
+      </Wrapper>
+    </Fragment>
+  );
+};
+
+export default TodoList;
 
 const Wrapper = styled.section`
   background: #fff;

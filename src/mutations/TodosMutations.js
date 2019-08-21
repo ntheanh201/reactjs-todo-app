@@ -3,7 +3,6 @@ import gql from 'graphql-tag';
 import { Mutation } from 'react-apollo';
 
 import InputBar from '../TodoList/components/InputBar';
-import Todos from '../TodoList/components/Todos';
 
 export const ADD_TODO = gql`
     mutation ($input: TodoInput) {
@@ -87,7 +86,8 @@ export const ToggleAllTodos = ({ children }) => (
     </Mutation>
 )
 
-export const ClearCompletedTodos = ({ children }) => 
+export const ClearCompletedTodos = ({ children }) => (
     <Mutation mutation={CLEAR_COMPLETED_TODOS}>
         {children}
     </Mutation>
+)

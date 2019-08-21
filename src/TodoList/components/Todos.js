@@ -1,39 +1,36 @@
-import React, { Component } from 'react'
+import React from 'react';
 import styled from 'styled-components';
 import TodoItem from './TodoItem';
 
-export default class Todos extends Component {
+const Todos = props => {
+  const showData = () => {
+    const { todos, refetch, updateTodo } = props;
+    return todos.map((todo, index) => (
+      <TodoItem
+        updateTodo={updateTodo}
+        refetch={refetch}
+        key={index}
+        todo={todo}
+      />
+    ));
+  };
+  return (
+    <Wrapper>
+      <List>{showData()}</List>
+    </Wrapper>
+  );
+};
 
-    showData = () => {
-        const { todos, refetch, updateTodo } = this.props
-        return todos.map((todo, index) =>
-            <TodoItem
-                updateTodo = {updateTodo}
-                refetch = {refetch}
-                key = {index}
-                todo = {todo} />
-        )
-    }
-
-    render() {
-        return (
-            <Wrapper>
-                <List>
-                    {this.showData()}
-                </List>
-            </Wrapper>
-        )
-    }
-}
+export default Todos;
 
 const Wrapper = styled.section`
-    position: relative;
-    z-index: 2;
-    border-top: 1px solid #e6e6e6;
+  position: relative;
+  z-index: 2;
+  border-top: 1px solid #e6e6e6;
 `;
 
 const List = styled.ul`
-    margin: 0;
-	padding: 0;
-	list-style: none;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 `;
