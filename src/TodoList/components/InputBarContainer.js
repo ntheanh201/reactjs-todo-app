@@ -2,9 +2,9 @@ import { connect } from 'react-redux';
 import { addTodo, toggleAllTodos } from '../../actions/actionTypes';
 import InputBar from './InputBar';
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = ({ todosReducer }, ownProps) => {
   return {
-    toggleStatus: state.toggleStatus
+    toggleStatus: todosReducer.toggleStatus
   };
 };
 

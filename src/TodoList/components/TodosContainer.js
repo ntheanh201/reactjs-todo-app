@@ -2,9 +2,9 @@ import { connect } from 'react-redux';
 import { getVisibleTodos } from '../../selectors/selectors';
 import Todos from './Todos';
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = ({ todosReducer }, ownProps) => {
   return {
-    todos: getVisibleTodos(state)
+    todos: getVisibleTodos(todosReducer)
   };
 };
 

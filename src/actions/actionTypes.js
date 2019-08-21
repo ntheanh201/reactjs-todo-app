@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { createAction } from 'redux-actions';
 import uuid from 'uuid';
+
+import { useFetch } from './hooks';
 export const ADD_TODO = 'ADD_TODO';
 export const GET_ALL_TODOS = 'GET_ALL_TODOS';
 export const TOGGLE_ALL_TODOS = 'TOGGLE_ALL_TODOS';
@@ -10,40 +12,36 @@ export const CLEAR_COMPLETED_TODO = 'CLEAR_COMPLETED_TODO';
 
 const serverUrl = 'http://localhost:8123';
 
-// export const getAll = createAction(GET_ALL_TODOS, () => {
-//     // return axios.get(`${serverUrl}/todos`).then(response => response.data)
+// const fetchTodo = res => {
+//   return {
+//     type: GET_ALL_TODOS,
+//     payload: res.data
+//   };
+// };
 
-//     Promise.all([axios.get(`${serverUrl}/todos`)]).then(values => {
-//         console.log(values[0].data)
-//         return values[0].data
-//     })
-// })
+// const fetchStart = () => {
+//   return {
+//     type: GET_ALL_TODOS,
+//     payload: []
+//   };
+// };
 
-const fetchTodo = res => {
-  return {
-    type: GET_ALL_TODOS,
-    payload: res.data
-  };
-};
+// export const getAllTodos = () => {
+//   return async dispatch => {
+//     try {
+//       dispatch(fetchStart());
+//       let res = await axios.get(`${serverUrl}/todos`);
+//       dispatch(fetchTodo(res));
+//     } catch (error) {
+//       dispatch(fetchStart());
+//     }
+//   };
+// };
 
-const fetchStart = () => {
-  return {
-    type: GET_ALL_TODOS,
-    payload: []
-  };
-};
-
-export const getAllTodos = () => {
-  return async dispatch => {
-    try {
-      dispatch(fetchStart());
-      let res = await axios.get(`${serverUrl}/todos`);
-      dispatch(fetchTodo(res));
-    } catch (error) {
-      dispatch(fetchStart());
-    }
-  };
-};
+export const getAllTodos = createAction(GET_ALL_TODOS, () => {
+  const [data] = useFetch(`${serverUrl}/todos`);
+  return data;
+});
 
 export const addTodo = createAction(ADD_TODO, text => {
   const id = uuid();
@@ -67,7 +65,7 @@ export const toggleAllTodos = createAction(TOGGLE_ALL_TODOS, toggleStatus => {
 });
 
 export const updateTodo = createAction(UPDATE_TODO, todo => {
-  console.log(todo);
+  // console.log(todo);
   axios
     .put(`${serverUrl}/todos/update/${todo.id}`, { todo })
     .then(res => res.data)

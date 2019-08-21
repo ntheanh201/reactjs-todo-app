@@ -6,11 +6,11 @@ import {
 } from '../../selectors/selectors';
 import ActionBar from './ActionBar';
 
-const mapStateToProps = state => {
+const mapStateToProps = ({ todosReducer }) => {
   return {
-    todos: getVisibleTodos(state),
-    filter: state.filter,
-    count: getUndoneTodosCount(state)
+    todos: getVisibleTodos(todosReducer),
+    filter: todosReducer.filter,
+    count: getUndoneTodosCount(todosReducer)
   };
 };
 
