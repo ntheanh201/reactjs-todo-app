@@ -1,6 +1,14 @@
 import React from 'react';
 import { BrowserRouter as Router, Link as Links } from 'react-router-dom';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
+
+const propTypes = {
+  count: PropTypes.number.isRequired,
+  filter: PropTypes.object.isRequired,
+  toggleFilter: PropTypes.func.isRequired,
+  clearCompletedClick: PropTypes.func.isRequired
+};
 
 const ActionBar = props => {
   const { count, filter, toggleFilter, clearCompletedClick } = props;
@@ -45,6 +53,7 @@ const ActionBar = props => {
   );
 };
 
+ActionBar.propTypes = propTypes;
 export default ActionBar;
 
 const Button = styled.button`

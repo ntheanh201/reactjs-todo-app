@@ -1,6 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import TodoItem from './TodoItem';
+
+const propTypes = {
+  todos: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      isDone: PropTypes.bool.isRequired,
+      name: PropTypes.string.isRequired
+    })
+  ).isRequired,
+  updateTodo: PropTypes.func.isRequired
+};
 
 const Todos = props => {
   const showData = () => {
@@ -14,6 +26,7 @@ const Todos = props => {
   );
 };
 
+Todos.propTypes = propTypes;
 export default Todos;
 
 const Wrapper = styled.section`

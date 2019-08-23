@@ -1,5 +1,11 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
+
+const propTypes = {
+  toggleAllTodo: PropTypes.func.isRequired,
+  createTodo: PropTypes.func.isRequired
+};
 
 const InputBar = props => {
   const [value, setValue] = useState('');
@@ -31,6 +37,7 @@ const InputBar = props => {
   );
 };
 
+InputBar.propTypes = propTypes;
 export default InputBar;
 
 const ToggleLabel = styled.label`
