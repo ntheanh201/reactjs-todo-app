@@ -4,6 +4,19 @@
 import React from 'react';
 import { BrowserRouter as Router, Link as Links } from 'react-router-dom';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
+
+const propTypes = {
+  filter: PropTypes.string.isRequired,
+  count: PropTypes.number.isRequired,
+  toggleFilter: PropTypes.func.isRequired,
+  clearCompletedTodos: PropTypes.func.isRequired
+};
+
+const defaultProps = {
+  toggleFilter: () => {},
+  clearCompletedTodos: () => {}
+};
 
 const ActionBar = props => {
   const handleClearCompletedTodos = () => {
@@ -53,6 +66,8 @@ const ActionBar = props => {
   );
 };
 
+ActionBar.propTypes = propTypes;
+ActionBar.defaultProps = defaultProps;
 export default ActionBar;
 
 const Button = styled.button`

@@ -2,6 +2,17 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import uuid from 'uuid';
+import PropTypes from 'prop-types';
+
+const propTypes = {
+  addTodo: PropTypes.func.isRequired,
+  toggleAllTodos: PropTypes.func.isRequired
+};
+
+const defaultProps = {
+  addTodo: () => {},
+  toggleAllTodos: () => {}
+};
 
 const InputBar = props => {
   const [text, setText] = useState('');
@@ -36,6 +47,8 @@ const InputBar = props => {
   );
 };
 
+InputBar.propTypes = propTypes;
+InputBar.defaultProps = defaultProps;
 export default InputBar;
 
 const ToggleLabel = styled.label`

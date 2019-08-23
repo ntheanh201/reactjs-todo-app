@@ -73,6 +73,7 @@ const TodoList = () => {
   };
 
   const has = Object.prototype.hasOwnProperty;
+
   return (
     <Fragment>
       <Title>todos</Title>
