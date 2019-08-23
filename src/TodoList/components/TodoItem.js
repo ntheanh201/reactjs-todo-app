@@ -1,6 +1,20 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import CheckBox from '../../Ui/components/CheckBox';
+import PropTypes from 'prop-types';
+
+const propTypes = {
+  todo: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    isDone: PropTypes.bool.isRequired,
+    name: PropTypes.string.isRequired
+  }).isRequired,
+  updateTodo: PropTypes.func.isRequired
+};
+
+const defaultProps = {
+  updateTodo: () => {}
+};
 
 const TodoItem = props => {
   const [editMode, setEditMode] = useState(false);
@@ -60,6 +74,8 @@ const TodoItem = props => {
   );
 };
 
+TodoItem.propTypes = propTypes;
+TodoItem.defaultProps = defaultProps;
 export default TodoItem;
 
 const Input = styled.input`

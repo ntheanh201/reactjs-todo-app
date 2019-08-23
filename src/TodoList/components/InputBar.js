@@ -1,5 +1,16 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
+
+const propTypes = {
+  toggleStatus: PropTypes.bool.isRequired,
+  handleSubmit: PropTypes.func.isRequired
+};
+
+const defaultProps = {
+  handleSubmit: () => {},
+  toggleAllTodos: () => {}
+};
 
 const InputBar = props => {
   const [text, setText] = useState('');
@@ -30,6 +41,8 @@ const InputBar = props => {
   );
 };
 
+InputBar.propTypes = propTypes;
+InputBar.defaultProps = defaultProps;
 export default InputBar;
 
 const ToggleLabel = styled.label`

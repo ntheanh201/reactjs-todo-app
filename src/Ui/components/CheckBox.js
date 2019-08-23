@@ -1,8 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 import Icon from './Icon';
-
+import PropTypes from 'prop-types';
 import { ReactComponent as CheckIcon } from '../../Assets/icons/checked.svg';
+
+const propTypes = {
+  checked: PropTypes.bool.isRequired,
+  onClick: PropTypes.func.isRequired
+};
 
 const CheckBox = props => {
   const { checked, onClick } = props;
@@ -18,6 +23,7 @@ const CheckBox = props => {
   );
 };
 
+CheckBox.propTypes = propTypes;
 export default CheckBox;
 
 const Wrapper = styled.div`
