@@ -4,14 +4,9 @@ import TodoItem from './TodoItem';
 
 const Todos = props => {
   const showData = () => {
-    const { todos, refetch, updateTodo } = props;
+    const { todos, updateTodo } = props;
     return todos.map((todo, index) => (
-      <TodoItem
-        updateTodo={updateTodo}
-        refetch={refetch}
-        key={index}
-        todo={todo}
-      />
+      <TodoItem updateTodo={updateTodo} key={index} todo={todo} />
     ));
   };
   return (

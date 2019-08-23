@@ -7,13 +7,7 @@ import styled from 'styled-components';
 
 const ActionBar = props => {
   const handleClearCompletedTodos = () => {
-    Promise.resolve(
-      props.clearCompletedTodos({
-        variables: {
-          completed: ''
-        }
-      })
-    ).then(() => props.refetch());
+    props.clearCompletedTodos('');
   };
   const { filter, toggleFilter, count } = props;
   return (

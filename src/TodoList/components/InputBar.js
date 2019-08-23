@@ -12,34 +12,16 @@ const InputBar = props => {
   };
 
   const handleToggleAllTodos = () => {
-    Promise.resolve(
-      props.toggleAllTodos({
-        variables: {
-          toggleStatus: !toggleStatus
-        }
-      })
-    ).then(() => props.refetch());
-
+    props.toggleAllTodos(!toggleStatus);
     setToggleStatus(!toggleStatus);
   };
 
-  const handleKeyDown = (event, addTodo) => {
+  const handleKeyDown = event => {
     if (event.key === 'Enter') {
-      Promise.resolve(
-        addTodo({
-          variables: {
-            input: {
-              id: uuid(),
-              isDone: false,
-              name: text
-            }
-          }
-        })
-      ).then(() => props.refetch());
+      props.addTodo({ id: uuid(), isDone: false, name: text });
     }
   };
 
-  const { addTodo } = props;
   return (
     <Wrapper>
       <ToggleLabel onClick={() => handleToggleAllTodos()} htmlFor="toggle-all">
@@ -47,7 +29,7 @@ const InputBar = props => {
       </ToggleLabel>
       <HeaderInput
         onChange={event => handleChange(event)}
-        onKeyDown={event => handleKeyDown(event, addTodo)}
+        onKeyDown={event => handleKeyDown(event)}
         placeholder="What needs to be done?"
       />
     </Wrapper>

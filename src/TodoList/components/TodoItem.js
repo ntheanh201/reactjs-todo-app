@@ -5,7 +5,7 @@ import CheckBox from '../../Ui/components/CheckBox';
 
 const TodoItem = props => {
   const [editMode, setEditMode] = useState(false);
-  const { todo, updateTodo } = props;
+  const { todo } = props;
   const ref = useRef();
 
   const handleClickOutside = event => {
@@ -19,18 +19,8 @@ const TodoItem = props => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   });
 
-  const handleUpdateTodo = (id, isDoneValue, nameValue) => {
-    Promise.resolve(
-      updateTodo({
-        variables: {
-          input: {
-            id,
-            isDone: isDoneValue,
-            name: nameValue
-          }
-        }
-      })
-    ).then(() => props.refetch);
+  const handleUpdateTodo = (id, isDone, name) => {
+    props.updateTodo({ id, isDone, name });
   };
 
   const handleKeyDown = event => {
