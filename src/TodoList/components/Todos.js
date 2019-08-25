@@ -1,59 +1,42 @@
-import React, { Component } from 'react'
+import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import TodoItem from './TodoItem';
 
-export default class Todos extends Component {
-    
+const propTypes = {
+  todos: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      isDone: PropTypes.bool.isRequired,
+      name: PropTypes.string.isRequired
+    })
+  ).isRequired,
+  updateTodo: PropTypes.func.isRequired
+};
 
-    getData = (dataFromInput) => {
-        this.setState({content: dataFromInput})
-    }
+const Todos = props => {
+  const showData = () => {
+    const { todos, updateTodo } = props;
+    return todos.map((todo, index) => <TodoItem updateTodo={updateTodo} key={index} todo={todo} />);
+  };
+  return (
+    <Wrapper>
+      <List>{showData()}</List>
+    </Wrapper>
+  );
+};
 
-    showData = () => {
-        const {todos, updateTodo} = this.props;
-        return todos.map((todo, index) => 
-            <TodoItem
-            updateTodo={updateTodo}
-            key={index}
-            todo={todo} />
-        )
-    }
-
-    render() {
-        return (
-            <Wrapper>
-               
-                <List>
-                    {/* todoList */}
-                    {this.showData()}
-                </List>
-            </Wrapper>
-        )
-    }
-}
-
-
+Todos.propTypes = propTypes;
+export default Todos;
 
 const Wrapper = styled.section`
-    position: relative;
-    z-index: 2;
-    border-top: 1px solid #e6e6e6;
+  position: relative;
+  z-index: 2;
+  border-top: 1px solid #e6e6e6;
 `;
 
 const List = styled.ul`
-    margin: 0;
-	padding: 0;
-	list-style: none;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 `;
-
-
-
-// const CompletedLi = styled.li`
-//     position: relative;
-// 	font-size: 24px;
-//     border-bottom: 1px solid #ededed;
-    
-//     :last-child {
-//         border-bottom: none;
-//     }
-// `;
