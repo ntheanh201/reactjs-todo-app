@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { BrowserRouter as Router, Link } from 'react-router-dom'
 
-const Footer = () => {
+export const Footer = () => {
   return (
     <Wrapper>
       <Router>
@@ -23,8 +23,6 @@ const Footer = () => {
     </Wrapper>
   )
 }
-
-export default Footer
 
 const Wrapper = styled.footer`
   margin: 65px auto 0;

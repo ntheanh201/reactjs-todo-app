@@ -2,7 +2,7 @@
 import React, { useState, useContext } from 'react'
 import styled from 'styled-components'
 import uuid from 'uuid'
-import { TodoListContext } from '../../context'
+import { TodoListContext } from '@context'
 
 const InputBar = () => {
   const { addTodo, toggleAllTodos } = useContext(TodoListContext)

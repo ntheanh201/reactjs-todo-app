@@ -2,8 +2,8 @@
 import React, { useState, useRef, useEffect, useContext } from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
-import CheckBox from '../../Ui/components/CheckBox'
-import { TodoListContext } from '../../context'
+import { CheckBox } from '@ui'
+import { TodoListContext } from '@context'
 
 const propTypes = {
   todo: PropTypes.shape({

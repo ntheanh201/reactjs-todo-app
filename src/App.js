@@ -1,8 +1,7 @@
 import React, { Fragment } from 'react'
 import ApolloClient from 'apollo-boost'
 import { ApolloProvider } from '@apollo/react-hooks'
-
-import Footer from './Layouts/Footer'
+import { Footer } from '@layouts'
 import TodoList from './TodoList'
 
 const client = new ApolloClient({

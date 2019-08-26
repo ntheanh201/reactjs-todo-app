@@ -4,15 +4,16 @@
 import React, { useContext } from 'react'
 import { BrowserRouter as Router, Link as Links } from 'react-router-dom'
 import styled from 'styled-components'
-import { TodoListContext } from '../../context'
+import { TodoListContext } from '@context'
 
 const toggleFilter = (filter, setFilter) => {
-  const { setFilter } = useContext(TodoListContext)
   setFilter(filter)
 }
 
 const ActionBar = () => {
-  const { filter, count, clearCompletedTodos } = useContext(TodoListContext)
+  const { filter, setFilter, count, clearCompletedTodos } = useContext(
+    TodoListContext
+  )
   const handleClearCompletedTodos = () => {
     clearCompletedTodos('')
   }
@@ -26,7 +27,7 @@ const ActionBar = () => {
           <Li>
             <StyledLink
               highlighted={filter === 'showAll' ? 1 : 0}
-              onClick={() => toggleFilter('showAll')}
+              onClick={() => toggleFilter('showAll', setFilter)}
               to="#/"
             >
               All
@@ -35,7 +36,7 @@ const ActionBar = () => {
           <Li>
             <StyledLink
               highlighted={filter === 'showActive' ? 1 : 0}
-              onClick={() => toggleFilter('showActive')}
+              onClick={() => toggleFilter('showActive', setFilter)}
               to="#/active"
             >
               Active
@@ -44,7 +45,7 @@ const ActionBar = () => {
           <Li>
             <StyledLink
               highlighted={filter === 'showCompleted' ? 1 : 0}
-              onClick={() => toggleFilter('showCompleted')}
+              onClick={() => toggleFilter('showCompleted', setFilter)}
               to="#/completed"
             >
               Completed

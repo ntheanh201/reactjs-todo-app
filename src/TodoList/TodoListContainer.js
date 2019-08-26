@@ -1,15 +1,16 @@
-import React, { useState, createContext } from 'react'
+import React, { useState } from 'react'
 import { useQuery, useMutation } from '@apollo/react-hooks'
 
-import { TodoListContext } from '../context'
+import { TodoListContext } from '@context'
 
-import { GET_TODOS } from '../queries/TodosQuery'
 import {
+  GET_TODOS,
   ADD_TODO,
   UPDATE_TODO,
   TOGGLE_ALL_TODOS,
   CLEAR_COMPLETED_TODOS
-} from '../mutations/TodosMutations'
+} from '@services/TodoService'
+
 import Component from './TodoList'
 
 export const TodoListContainer = restprops => {

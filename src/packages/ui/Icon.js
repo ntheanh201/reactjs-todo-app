@@ -1,12 +1,12 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const Icon = props => {
-  const { children, ...restProps } = props
-  return <Wrapper {...restProps}>{props.children}</Wrapper>
+const Component = ({ children, ...restProps }) => {
+  return <Wrapper {...restProps}>{children}</Wrapper>
 }
 
-export default Icon
+export const Icon = Component
+
 const Wrapper = styled.div`
   path {
     filled: ${props => props.color};
