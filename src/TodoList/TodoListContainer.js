@@ -1,5 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, createContext } from 'react'
 import { useQuery, useMutation } from '@apollo/react-hooks'
+
+import { TodoListContext } from '../context'
 
 import { GET_TODOS } from '../queries/TodosQuery'
 import {
@@ -10,10 +12,10 @@ import {
 } from '../mutations/TodosMutations'
 import Component from './TodoList'
 
-export const TodoList = restprops => {
+export const TodoListContainer = restprops => {
   const [filter, setFilter] = useState('showAll')
 
-  const { data: { todos } = {}, refetch } = useQuery(GET_TODOS, {
+  const { data: { todos = [] } = {}, refetch } = useQuery(GET_TODOS, {
     variables: {
       filter
     }
@@ -75,6 +77,7 @@ export const TodoList = restprops => {
 
   const props = {
     todos,
+    count: todos.length,
     addTodo,
     updateTodo,
     toggleAllTodos,
@@ -83,5 +86,11 @@ export const TodoList = restprops => {
     filter
   }
 
-  return <Component {...restprops} {...props} />
+  return (
+    <TodoListContext.Provider value={props}>
+      <Component {...restprops} />
+    </TodoListContext.Provider>
+  )
 }
+
+export default TodoListContainer

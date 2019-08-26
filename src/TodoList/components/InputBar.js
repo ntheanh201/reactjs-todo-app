@@ -1,20 +1,11 @@
 /* eslint-disable function-paren-newline */
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import styled from 'styled-components'
 import uuid from 'uuid'
-import PropTypes from 'prop-types'
+import { TodoListContext } from '../../context'
 
-const propTypes = {
-  addTodo: PropTypes.func.isRequired,
-  toggleAllTodos: PropTypes.func.isRequired
-}
-
-const defaultProps = {
-  addTodo: () => {},
-  toggleAllTodos: () => {}
-}
-
-const InputBar = props => {
+const InputBar = () => {
+  const { addTodo, toggleAllTodos } = useContext(TodoListContext)
   const [text, setText] = useState('')
   const [toggleStatus, setToggleStatus] = useState(false)
 
@@ -23,32 +14,30 @@ const InputBar = props => {
   }
 
   const handleToggleAllTodos = () => {
-    props.toggleAllTodos(!toggleStatus)
+    toggleAllTodos(!toggleStatus)
     setToggleStatus(!toggleStatus)
   }
 
   const handleKeyDown = event => {
     if (event.key === 'Enter') {
-      props.addTodo({ id: uuid(), isDone: false, name: text })
+      addTodo({ id: uuid(), isDone: false, name: text })
     }
   }
 
   return (
     <Wrapper>
-      <ToggleLabel onClick={() => handleToggleAllTodos()} htmlFor="toggle-all">
+      <ToggleLabel onClick={handleToggleAllTodos} htmlFor="toggle-all">
         Mark all as complete
       </ToggleLabel>
       <HeaderInput
-        onChange={event => handleChange(event)}
-        onKeyDown={event => handleKeyDown(event)}
+        onChange={handleChange}
+        onKeyDown={handleKeyDown}
         placeholder="What needs to be done?"
       />
     </Wrapper>
   )
 }
 
-InputBar.propTypes = propTypes
-InputBar.defaultProps = defaultProps
 export default InputBar
 
 const ToggleLabel = styled.label`

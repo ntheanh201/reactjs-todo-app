@@ -1,25 +1,22 @@
 /* eslint-disable function-paren-newline */
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect, useContext } from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import CheckBox from '../../Ui/components/CheckBox'
+import { TodoListContext } from '../../context'
 
 const propTypes = {
   todo: PropTypes.shape({
     id: PropTypes.string.isRequired,
     isDone: PropTypes.bool.isRequired,
     name: PropTypes.string.isRequired
-  }).isRequired,
-  updateTodo: PropTypes.func.isRequired
+  }).isRequired
 }
 
-const defaultProps = {
-  updateTodo: () => {}
-}
-
-const TodoItem = props => {
+const TodoItem = ({ todo }) => {
+  const { id, isDone, name } = todo
+  const { updateTodo } = useContext(TodoListContext)
   const [editMode, setEditMode] = useState(false)
-  const { todo } = props
   const ref = useRef()
 
   const handleClickOutside = event => {
@@ -33,36 +30,26 @@ const TodoItem = props => {
     return () => document.removeEventListener('mousedown', handleClickOutside)
   })
 
-  const handleUpdateTodo = (id, isDone, name) => {
-    props.updateTodo({ id, isDone, name })
+  const handleToggleTodo = () => {
+    updateTodo({ id, isDone: !isDone, name })
   }
 
   const handleKeyDown = event => {
     if (event.key === 'Enter') {
-      const { id, isDone } = props.todo
       setEditMode(false)
-      handleUpdateTodo(id, isDone, event.target.value)
+      updateTodo({ id, isDone, name: event.target.value })
     }
   }
   return (
     <Li>
       <Wrapper>
-        <CheckBox
-          onClick={() => handleUpdateTodo(todo.id, !todo.isDone, todo.name)}
-          checked={todo.isDone}
-        />
+        <CheckBox onClick={handleToggleTodo} checked={isDone} />
         {editMode ? (
-          <EditInput
-            onKeyDown={handleKeyDown}
-            ref={ref}
-            defaultValue={todo.name}
-          />
-        ) : todo.isDone ? (
-          <DoneLabel onClick={() => setEditMode(true)}>{todo.name}</DoneLabel>
+          <EditInput onKeyDown={handleKeyDown} ref={ref} defaultValue={name} />
+        ) : isDone ? (
+          <DoneLabel onClick={() => setEditMode(true)}>{name}</DoneLabel>
         ) : (
-          <UndoneLabel onClick={() => setEditMode(true)}>
-            {todo.name}
-          </UndoneLabel>
+          <UndoneLabel onClick={() => setEditMode(true)}>{name}</UndoneLabel>
         )}
       </Wrapper>
     </Li>
@@ -70,7 +57,6 @@ const TodoItem = props => {
 }
 
 TodoItem.propTypes = propTypes
-TodoItem.defaultProps = defaultProps
 export default TodoItem
 
 const Input = styled.input`

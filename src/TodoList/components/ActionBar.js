@@ -1,28 +1,21 @@
 /* eslint-disable implicit-arrow-linebreak */
 /* eslint-disable no-confusing-arrow */
 /* eslint-disable function-paren-newline */
-import React from 'react'
+import React, { useContext } from 'react'
 import { BrowserRouter as Router, Link as Links } from 'react-router-dom'
 import styled from 'styled-components'
-import PropTypes from 'prop-types'
+import { TodoListContext } from '../../context'
 
-const propTypes = {
-  filter: PropTypes.string.isRequired,
-  count: PropTypes.number.isRequired,
-  toggleFilter: PropTypes.func.isRequired,
-  clearCompletedTodos: PropTypes.func.isRequired
+const toggleFilter = (filter, setFilter) => {
+  const { setFilter } = useContext(TodoListContext)
+  setFilter(filter)
 }
 
-const defaultProps = {
-  toggleFilter: () => {},
-  clearCompletedTodos: () => {}
-}
-
-const ActionBar = props => {
+const ActionBar = () => {
+  const { filter, count, clearCompletedTodos } = useContext(TodoListContext)
   const handleClearCompletedTodos = () => {
-    props.clearCompletedTodos('')
+    clearCompletedTodos('')
   }
-  const { filter, toggleFilter, count } = props
   return (
     <Footer>
       <Span>
@@ -66,8 +59,6 @@ const ActionBar = props => {
   )
 }
 
-ActionBar.propTypes = propTypes
-ActionBar.defaultProps = defaultProps
 export default ActionBar
 
 const Button = styled.button`

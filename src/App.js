@@ -3,7 +3,7 @@ import ApolloClient from 'apollo-boost'
 import { ApolloProvider } from '@apollo/react-hooks'
 
 import Footer from './Layouts/Footer'
-import { TodoList } from './TodoList/TodoContainer'
+import TodoList from './TodoList'
 
 const client = new ApolloClient({
   uri: 'http://localhost:4000/graphql',
