@@ -1,28 +1,28 @@
 /* eslint-disable implicit-arrow-linebreak */
 /* eslint-disable no-confusing-arrow */
 /* eslint-disable function-paren-newline */
-import React from 'react';
-import { BrowserRouter as Router, Link as Links } from 'react-router-dom';
-import styled from 'styled-components';
-import PropTypes from 'prop-types';
+import React from 'react'
+import { BrowserRouter as Router, Link as Links } from 'react-router-dom'
+import styled from 'styled-components'
+import PropTypes from 'prop-types'
 
 const propTypes = {
   filter: PropTypes.string.isRequired,
   count: PropTypes.number.isRequired,
   toggleFilter: PropTypes.func.isRequired,
   clearCompletedTodos: PropTypes.func.isRequired
-};
+}
 
 const defaultProps = {
   toggleFilter: () => {},
   clearCompletedTodos: () => {}
-};
+}
 
 const ActionBar = props => {
   const handleClearCompletedTodos = () => {
-    props.clearCompletedTodos('');
-  };
-  const { filter, toggleFilter, count } = props;
+    props.clearCompletedTodos('')
+  }
+  const { filter, toggleFilter, count } = props
   return (
     <Footer>
       <Span>
@@ -63,12 +63,12 @@ const ActionBar = props => {
         Clear completed
       </ClearCompletedButton>
     </Footer>
-  );
-};
+  )
+}
 
-ActionBar.propTypes = propTypes;
-ActionBar.defaultProps = defaultProps;
-export default ActionBar;
+ActionBar.propTypes = propTypes
+ActionBar.defaultProps = defaultProps
+export default ActionBar
 
 const Button = styled.button`
   margin: 0;
@@ -84,7 +84,7 @@ const Button = styled.button`
   appearance: none;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-`;
+`
 
 const FiltersUl = styled.ul`
   margin: 0;
@@ -93,15 +93,15 @@ const FiltersUl = styled.ul`
   position: absolute;
   right: 0;
   left: 0;
-`;
+`
 
 const Li = styled.li`
   display: inline;
-`;
+`
 
 const Link = props => {
-  return <Links {...props} />;
-};
+  return <Links {...props} />
+}
 
 const StyledLink = styled(Link)`
   color: inherit;
@@ -115,12 +115,12 @@ const StyledLink = styled(Link)`
   :hover {
     border-color: rgba(175, 47, 47, 0.1);
   }
-`;
+`
 
 const Span = styled.span`
   float: left;
   text-align: left;
-`;
+`
 
 const ClearCompletedButton = styled(Button)`
   float: right;
@@ -132,7 +132,7 @@ const ClearCompletedButton = styled(Button)`
   :hover {
     text-decoration: underline;
   }
-`;
+`
 
 const Footer = styled.footer`
   color: #777;
@@ -153,8 +153,8 @@ const Footer = styled.footer`
       0 9px 1px -3px rgba(0, 0, 0, 0.2), 0 16px 0 -6px #f6f6f6,
       0 17px 2px -6px rgba(0, 0, 0, 0.2);
   }
-`;
+`
 
 const Strong = styled.strong`
   font-weight: 300;
-`;
+`

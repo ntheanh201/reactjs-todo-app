@@ -1,37 +1,37 @@
 /* eslint-disable function-paren-newline */
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import uuid from 'uuid';
-import PropTypes from 'prop-types';
+import React, { useState } from 'react'
+import styled from 'styled-components'
+import uuid from 'uuid'
+import PropTypes from 'prop-types'
 
 const propTypes = {
   addTodo: PropTypes.func.isRequired,
   toggleAllTodos: PropTypes.func.isRequired
-};
+}
 
 const defaultProps = {
   addTodo: () => {},
   toggleAllTodos: () => {}
-};
+}
 
 const InputBar = props => {
-  const [text, setText] = useState('');
-  const [toggleStatus, setToggleStatus] = useState(false);
+  const [text, setText] = useState('')
+  const [toggleStatus, setToggleStatus] = useState(false)
 
   const handleChange = event => {
-    setText(event.target.value);
-  };
+    setText(event.target.value)
+  }
 
   const handleToggleAllTodos = () => {
-    props.toggleAllTodos(!toggleStatus);
-    setToggleStatus(!toggleStatus);
-  };
+    props.toggleAllTodos(!toggleStatus)
+    setToggleStatus(!toggleStatus)
+  }
 
   const handleKeyDown = event => {
     if (event.key === 'Enter') {
-      props.addTodo({ id: uuid(), isDone: false, name: text });
+      props.addTodo({ id: uuid(), isDone: false, name: text })
     }
-  };
+  }
 
   return (
     <Wrapper>
@@ -44,12 +44,12 @@ const InputBar = props => {
         placeholder="What needs to be done?"
       />
     </Wrapper>
-  );
-};
+  )
+}
 
-InputBar.propTypes = propTypes;
-InputBar.defaultProps = defaultProps;
-export default InputBar;
+InputBar.propTypes = propTypes
+InputBar.defaultProps = defaultProps
+export default InputBar
 
 const ToggleLabel = styled.label`
   width: 60px;
@@ -68,7 +68,7 @@ const ToggleLabel = styled.label`
     color: #e6e6e6;
     padding: 10px 27px 10px 27px;
   }
-`;
+`
 
 const Input = styled.input`
   ::-webkit-input-placeholder {
@@ -86,9 +86,9 @@ const Input = styled.input`
     font-weight: 300;
     color: #e6e6e6;
   }
-`;
+`
 
-const Wrapper = styled.header``;
+const Wrapper = styled.header``
 
 const HeaderInput = styled(Input)`
   position: relative;
@@ -110,4 +110,4 @@ const HeaderInput = styled(Input)`
   border: none;
   background: rgba(0, 0, 0, 0.003);
   box-shadow: inset 0 -2px 1px rgba(0, 0, 0, 0.03);
-`;
+`

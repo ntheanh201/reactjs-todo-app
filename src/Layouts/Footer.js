@@ -1,6 +1,6 @@
-import React from 'react';
-import styled from 'styled-components';
-import { BrowserRouter as Router, Link } from 'react-router-dom';
+import React from 'react'
+import styled from 'styled-components'
+import { BrowserRouter as Router, Link } from 'react-router-dom'
 
 const Footer = () => {
   return (
@@ -21,10 +21,10 @@ const Footer = () => {
         </P>
       </Router>
     </Wrapper>
-  );
-};
+  )
+}
 
-export default Footer;
+export default Footer
 
 const Wrapper = styled.footer`
   margin: 65px auto 0;
@@ -32,11 +32,11 @@ const Wrapper = styled.footer`
   font-size: 10px;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
   text-align: center;
-`;
+`
 
 const P = styled.p`
   line-height: 1;
-`;
+`
 
 const StyledLink = styled(Link)`
   color: inherit;
@@ -46,4 +46,4 @@ const StyledLink = styled(Link)`
   &:hover {
     text-decoration: underline;
   }
-`;
+`

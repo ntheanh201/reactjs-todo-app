@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export default styled.h1`
   width: 100%;
@@ -9,4 +9,4 @@ export default styled.h1`
   -webkit-text-rendering: optimizeLegibility;
   -moz-text-rendering: optimizeLegibility;
   text-rendering: optimizeLegibility;
-`;
+`

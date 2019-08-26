@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import gql from 'graphql-tag'
 
 export const ADD_TODO = gql`
   mutation($input: TodoInput) {
@@ -8,7 +8,7 @@ export const ADD_TODO = gql`
       name
     }
   }
-`;
+`
 
 export const UPDATE_TODO = gql`
   mutation($input: TodoInput) {
@@ -18,7 +18,7 @@ export const UPDATE_TODO = gql`
       name
     }
   }
-`;
+`
 
 export const TOGGLE_ALL_TODOS = gql`
   mutation($toggleStatus: Boolean!) {
@@ -28,7 +28,7 @@ export const TOGGLE_ALL_TODOS = gql`
       name
     }
   }
-`;
+`
 
 export const CLEAR_COMPLETED_TODOS = gql`
   mutation($completed: String!) {
@@ -38,4 +38,4 @@ export const CLEAR_COMPLETED_TODOS = gql`
       name
     }
   }
-`;
+`

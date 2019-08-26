@@ -1,12 +1,12 @@
-import React from 'react';
-import styled from 'styled-components';
-import Icon from './Icon';
+import React from 'react'
+import styled from 'styled-components'
+import Icon from './Icon'
 
-import { ReactComponent as CheckIcon } from '../../Assets/icons/checked.svg';
+import { ReactComponent as CheckIcon } from '../../Assets/icons/checked.svg'
 
 const CheckBox = props => {
-  const { checked, onClick } = props;
-  const size = '28px';
+  const { checked, onClick } = props
+  const size = '28px'
   return (
     <Wrapper size={size} onClick={onClick}>
       {checked && (
@@ -15,10 +15,10 @@ const CheckBox = props => {
         </Icon>
       )}
     </Wrapper>
-  );
-};
+  )
+}
 
-export default CheckBox;
+export default CheckBox
 
 const Wrapper = styled.div`
   position: absolute;
@@ -26,4 +26,4 @@ const Wrapper = styled.div`
   left: 10px;
   height: ${props => props.size};
   width: ${props => props.size};
-`;
+`

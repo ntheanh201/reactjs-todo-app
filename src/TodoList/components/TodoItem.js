@@ -1,8 +1,8 @@
 /* eslint-disable function-paren-newline */
-import React, { useState, useRef, useEffect } from 'react';
-import styled from 'styled-components';
-import PropTypes from 'prop-types';
-import CheckBox from '../../Ui/components/CheckBox';
+import React, { useState, useRef, useEffect } from 'react'
+import styled from 'styled-components'
+import PropTypes from 'prop-types'
+import CheckBox from '../../Ui/components/CheckBox'
 
 const propTypes = {
   todo: PropTypes.shape({
@@ -11,39 +11,39 @@ const propTypes = {
     name: PropTypes.string.isRequired
   }).isRequired,
   updateTodo: PropTypes.func.isRequired
-};
+}
 
 const defaultProps = {
   updateTodo: () => {}
-};
+}
 
 const TodoItem = props => {
-  const [editMode, setEditMode] = useState(false);
-  const { todo } = props;
-  const ref = useRef();
+  const [editMode, setEditMode] = useState(false)
+  const { todo } = props
+  const ref = useRef()
 
   const handleClickOutside = event => {
     if (ref.current && !ref.current.contains(event.target)) {
-      setEditMode(false);
+      setEditMode(false)
     }
-  };
+  }
 
   useEffect(() => {
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  });
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  })
 
   const handleUpdateTodo = (id, isDone, name) => {
-    props.updateTodo({ id, isDone, name });
-  };
+    props.updateTodo({ id, isDone, name })
+  }
 
   const handleKeyDown = event => {
     if (event.key === 'Enter') {
-      const { id, isDone } = props.todo;
-      setEditMode(false);
-      handleUpdateTodo(id, isDone, event.target.value);
+      const { id, isDone } = props.todo
+      setEditMode(false)
+      handleUpdateTodo(id, isDone, event.target.value)
     }
-  };
+  }
   return (
     <Li>
       <Wrapper>
@@ -66,12 +66,12 @@ const TodoItem = props => {
         )}
       </Wrapper>
     </Li>
-  );
-};
+  )
+}
 
-TodoItem.propTypes = propTypes;
-TodoItem.defaultProps = defaultProps;
-export default TodoItem;
+TodoItem.propTypes = propTypes
+TodoItem.defaultProps = defaultProps
+export default TodoItem
 
 const Input = styled.input`
   ::-webkit-input-placeholder {
@@ -89,18 +89,18 @@ const Input = styled.input`
     font-weight: 300;
     color: #e6e6e6;
   }
-`;
+`
 
 const Wrapper = styled.div`
   display: block;
   position: relative;
-`;
+`
 
 const Label = styled.label`
   background-image: url('data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2240%22%20height%3D%2240%22%20viewBox%3D%22-10%20-18%20100%20135%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2250%22%20fill%3D%22none%22%20stroke%3D%22%23ededed%22%20stroke-width%3D%223%22/%3E%3C/svg%3E');
   background-repeat: no-repeat;
   background-position: center left;
-`;
+`
 
 const UndoneLabel = styled(Label)`
   word-break: break-all;
@@ -109,16 +109,16 @@ const UndoneLabel = styled(Label)`
   line-height: 1.23;
   transition: color 0.4s;
   font-size: 24px;
-`;
+`
 
 const DoneLabel = styled(UndoneLabel)`
   color: #d9d9d9;
   text-decoration: line-through;
-`;
+`
 
 const Li = styled.li`
   display: inline;
-`;
+`
 
 const EditInput = styled(Input)`
   position: relative;
@@ -140,4 +140,4 @@ const EditInput = styled(Input)`
   width: calc(100% - 43px);
   padding: 12px 16px;
   margin: 0 0 0 43px;
-`;
+`
