@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import styled from 'styled-components'
 import TodoItem from './TodoItem'
-import { TodoListContext } from '@context'
+import { TodoListContext } from 'context'
 
 const Todos = () => {
   const { todos } = useContext(TodoListContext)

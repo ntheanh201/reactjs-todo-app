@@ -4,7 +4,7 @@
 import React, { useContext } from 'react'
 import { BrowserRouter as Router, Link as Links } from 'react-router-dom'
 import styled from 'styled-components'
-import { TodoListContext } from '@context'
+import { TodoListContext } from 'context'
 
 const toggleFilter = (filter, setFilter) => {
   setFilter(filter)

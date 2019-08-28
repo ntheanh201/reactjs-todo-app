@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useQuery, useMutation } from '@apollo/react-hooks'
 
-import { TodoListContext } from '@context'
+import { TodoListContext } from 'context'
 
 import {
   GET_TODOS,
@@ -9,11 +9,11 @@ import {
   UPDATE_TODO,
   TOGGLE_ALL_TODOS,
   CLEAR_COMPLETED_TODOS
-} from '@services/TodoService'
+} from 'services/TodoService'
 
 import Component from './TodoList'
 
-export const TodoListContainer = restprops => {
+export const TodoListContainer = restProps => {
   const [filter, setFilter] = useState('showAll')
 
   const { data: { todos = [] } = {}, refetch } = useQuery(GET_TODOS, {
@@ -22,17 +22,10 @@ export const TodoListContainer = restprops => {
     }
   })
 
-  const [
-    addTodoMutation,
-    updateTodoMutation,
-    toggleAllTodosMutation,
-    clearCompletedTodosMutation
-  ] = useMutation(
-    ADD_TODO,
-    UPDATE_TODO,
-    TOGGLE_ALL_TODOS,
-    CLEAR_COMPLETED_TODOS
-  )
+  const [addTodoMutation] = useMutation(ADD_TODO)
+  const [updateTodoMutation] = useMutation(UPDATE_TODO)
+  const [toggleAllTodosMutation] = useMutation(TOGGLE_ALL_TODOS)
+  const [clearCompletedTodosMutation] = useMutation(CLEAR_COMPLETED_TODOS)
 
   const addTodo = async ({ id, isDone, name }) => {
     await addTodoMutation({
@@ -89,7 +82,7 @@ export const TodoListContainer = restprops => {
 
   return (
     <TodoListContext.Provider value={props}>
-      <Component {...restprops} />
+      <Component {...restProps} />
     </TodoListContext.Provider>
   )
 }

@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import styled from 'styled-components'
-import { Title } from '@ui'
+import { Title } from 'ui'
 import ActionBar from './components/ActionBar'
 import Todos from './components/Todos'
 import InputBar from './components/InputBar'

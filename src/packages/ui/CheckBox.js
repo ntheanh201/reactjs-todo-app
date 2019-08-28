@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
-import Icon from './Icon'
-
-import { ReactComponent as CheckIcon } from '../../assets/icons/checked.svg'
+import PropTypes from 'prop-types'
+import { Icon } from './Icon'
+import Tickbox from '../../assets/icons/checked.svg'
 
 const propTypes = {
   checked: PropTypes.bool.isRequired,
@@ -13,17 +13,14 @@ const propTypes = {
 const defaultProps = {
   checked: false,
   onClick: () => {},
-  size: '28px'
+  height: '28px',
+  width: '28px'
 }
 
-const Component = ({ checked, onClick, size }) => {
+const Component = ({ checked, onClick, height, width }) => {
   return (
-    <Wrapper size={size} onClick={onClick}>
-      {checked && (
-        <Icon size={size}>
-          <CheckIcon />
-        </Icon>
-      )}
+    <Wrapper height={height} width={width} onClick={onClick}>
+      {checked && <Icon height={height} width={width} source={Tickbox} />}
     </Wrapper>
   )
 }
@@ -36,6 +33,6 @@ const Wrapper = styled.div`
   position: absolute;
   top: 16px;
   left: 10px;
-  height: ${props => props.size};
-  width: ${props => props.size};
+  height: ${props => props.height};
+  width: ${props => props.width};
 `
