@@ -6,17 +6,19 @@ import { BrowserRouter as Router, Link as Links } from 'react-router-dom'
 import styled from 'styled-components'
 import { TodoListContext } from 'context'
 
-const toggleFilter = (filter, setFilter) => {
-  setFilter(filter)
-}
-
 const ActionBar = () => {
   const { filter, setFilter, count, clearCompletedTodos } = useContext(
     TodoListContext
   )
+
+  const toggleFilter = (filter, setFilter) => {
+    setFilter(filter)
+  }
+
   const handleClearCompletedTodos = () => {
     clearCompletedTodos('')
   }
+
   return (
     <Footer>
       <Span>
