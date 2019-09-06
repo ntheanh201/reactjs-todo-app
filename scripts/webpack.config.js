@@ -1,12 +1,10 @@
 const path = require('path')
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin')
-var HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
   entry: './src/index.js',
   output: {
-    path: path.resolve(__dirname, '../dist'),
-    filename: 'bundle.[hash:8].js'
+    path: path.resolve(__dirname, '../dist')
   },
   module: {
     rules: [
@@ -14,17 +12,6 @@ module.exports = {
         test: /\.(js|jsx|mjs)$/,
         exclude: /node_modules/,
         use: 'babel-loader'
-      },
-      {
-        test: /\.css$/,
-        use: [
-          {
-            loader: 'style-loader'
-          },
-          {
-            loader: 'css-loader'
-          }
-        ]
       },
       {
         test: /\.svg$/,
@@ -36,11 +23,6 @@ module.exports = {
       }
     ]
   },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: './public/index.html'
-    })
-  ],
   resolve: {
     alias: {
       context: path.resolve(__dirname, '../src/packages/context'),
