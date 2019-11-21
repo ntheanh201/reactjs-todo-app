@@ -16,6 +16,7 @@ const propTypes = {
 const TodoItem = ({ todo }) => {
   const { id, isDone, name } = todo
   const { updateTodo } = useContext(TodoListContext)
+  const { toggleTodo} = useContext(TodoListContext)
   const [editMode, setEditMode] = useState(false)
   const ref = useRef()
 
@@ -31,13 +32,13 @@ const TodoItem = ({ todo }) => {
   })
 
   const handleToggleTodo = () => {
-    updateTodo({ id, isDone: !isDone, name })
+    toggleTodo({ id, isDone: !isDone })
   }
 
   const handleKeyDown = event => {
     if (event.key === 'Enter') {
       setEditMode(false)
-      updateTodo({ id, isDone, name: event.target.value })
+      updateTodo({ id, name: event.target.value })
     }
   }
   return (

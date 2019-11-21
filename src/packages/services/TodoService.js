@@ -10,7 +10,7 @@ export const GET_ALL_TODOS = gql`
     }
   }
 `
-
+// get completed todo list
 export const GET_TODOS = gql`
   query($filter: String!) {
     todos(filter: $filter) {
@@ -22,8 +22,8 @@ export const GET_TODOS = gql`
 `
 
 export const ADD_TODO = gql`
-  mutation($input: TodoInput) {
-    addTodo(input: $input) {
+  mutation($name: String!) {
+    addTodo(name: $name) {
       id
       isDone
       name
@@ -32,8 +32,17 @@ export const ADD_TODO = gql`
 `
 
 export const UPDATE_TODO = gql`
-  mutation($input: TodoInput) {
-    updateTodo(input: $input) {
+  mutation($name: String!, $id: ID!) {
+    updateTodo(name: $name, id: $id) {
+      id
+      isDone
+      name
+    }
+  }
+`
+export const TOGGLE_TODO = gql`
+  mutation($isDone: Boolean!, $id: ID!) {
+    toggleTodo(isDone: $isDone, id: $id) {
       id
       isDone
       name
@@ -42,8 +51,8 @@ export const UPDATE_TODO = gql`
 `
 
 export const TOGGLE_ALL_TODOS = gql`
-  mutation($toggleStatus: Boolean!) {
-    toggleAllTodos(toggleStatus: $toggleStatus) {
+  mutation($isDone: Boolean!) {
+    toggleAll(isDone: $isDone) {
       id
       isDone
       name
@@ -52,8 +61,8 @@ export const TOGGLE_ALL_TODOS = gql`
 `
 
 export const CLEAR_COMPLETED_TODOS = gql`
-  mutation($completed: String!) {
-    clearCompletedTodos(completed: $completed) {
+  mutation($isDone: Boolean) {
+    clearCompletedTodo(isDone: $isDone) {
       id
       isDone
       name
